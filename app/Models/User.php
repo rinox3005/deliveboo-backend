@@ -41,4 +41,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Relazione One-to-One con Restaurant.
+     * Un utente può avere un solo ristorante.
+     */
+    public function restaurant()
+    {
+        return $this->hasOne(Restaurant::class);
+    }
 }
