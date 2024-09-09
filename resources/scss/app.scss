@@ -1,0 +1,17 @@
+@use "./partials/common" as *;
+@use "./partials/reset" as *;
+@use "./partials/variables" as *;
+@use "./partials/mixin" as *;
+@use "./partials/utils" as *;
+@use "./partials/typography" as *;
+
+/*resources/scss/app.scss*/
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    background-color: $body-bg-color;
+}
+
+a {
+    text-decoration: none;
+}
