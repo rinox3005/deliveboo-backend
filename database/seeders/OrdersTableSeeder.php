@@ -176,6 +176,7 @@ class OrdersTableSeeder extends Seeder
             $order->save();
         }
 
+        // Riabilito i vincoli delle chiavi esterne
         Schema::enableForeignKeyConstraints();
     }
 }
