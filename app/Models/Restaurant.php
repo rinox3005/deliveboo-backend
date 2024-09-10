@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Restaurant extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'name',
+        'address',
+        'city',
+        'phone_number',
+        'piva',
+    ];
     /**
      * Relazione One-to-Many con Order.
      * Un ristorante può avere molti ordini.

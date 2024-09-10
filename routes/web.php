@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,11 @@ Route::middleware(['auth', 'verified'])
         function () {
             // user dashboard
             Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+            //restaurants
+            Route::resource('restaurants', RestaurantController::class)->parameters([
+                'restaurants' => 'restaurant:slug',
+            ]);
         }
     );
 
