@@ -26,9 +26,11 @@
                                             <img src="{{ $restaurant->image_path ? asset($restaurant->image_path) : Vite::asset('resources/img/restaurant-placeholder-show.png') }}"
                                                 class="card-img-top" alt="{{ $restaurant->name }}">
                                             <div class="card-body">
-                                                <h4 class="card-title">{{ $restaurant->name }}</h4>
-                                                <a href="{{ route('user.restaurants.show', $restaurant) }}"
-                                                    class="btn btn-primary">Dettagli</a>
+                                                <h4 class="card-title mb-3 text-center">{{ $restaurant->name }}</h4>
+                                                <div class="d-flex justify-content-center">
+                                                    <a href="{{ route('user.restaurants.show', $restaurant) }}"
+                                                        class="btn btn-primary">Dettagli</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

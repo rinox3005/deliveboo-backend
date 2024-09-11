@@ -19,24 +19,24 @@
                     <div class="col-md-9">
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <p class="mb-2">
-                                    <strong>Indirizzo:</strong>
-                                    {{ $restaurant->address }}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
                                 <strong>Categorie:</strong>
                                 @if ($restaurant->types->isNotEmpty())
                                     @foreach ($restaurant->types as $type)
-                                        <span class="badge bg-warning text-black">
+                                        <span class="badge bg-success text-white">
                                             {{ $type->name }}
                                         </span>
                                     @endforeach
                                 @else
                                     <span>Non Disponibili</span>
                                 @endif
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <p class="mb-2">
+                                    <strong>Indirizzo:</strong>
+                                    {{ $restaurant->address }}
+                                </p>
                             </div>
                             <div class="col-md-6">
                                 <p class="mb-2">
