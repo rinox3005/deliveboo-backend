@@ -26,7 +26,7 @@
     <div id="app">
 
 
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md shadow-sm">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                     <div class="logo_laravel">
@@ -77,11 +77,14 @@
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    {{-- <a class="dropdown-item" href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a> --}}
+                                <div id="theme-dropdown-menu" class="dropdown-menu dropdown-menu-right"
+                                    aria-labelledby="navbarDropdown">
+                                    <a id="theme-toggle" class="dropdown-item" href="#">
+                                        <i id="theme-icon" class="fas fa-moon"></i> Dark Mode
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                     document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 

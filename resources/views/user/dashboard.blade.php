@@ -2,10 +2,6 @@
 
 @section('content')
     <div class="container">
-        <a href="{{ route('user.restaurants.create') }}" class="btn btn-success mt-4">
-            <i class="fas fa-plus"></i>
-            Aggiungi Ristorante
-        </a>
         <div class="row justify-content-center">
             <div class="col mt-4">
                 <div class="card">

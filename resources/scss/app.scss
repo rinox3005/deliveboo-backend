@@ -8,9 +8,9 @@
 /*resources/scss/app.scss*/
 @import "~bootstrap/scss/bootstrap";
 
-body {
-    background-color: $body-bg-color;
-}
+// body {
+//     background-color: $body-bg-color;
+// }
 
 a {
     text-decoration: none;
@@ -20,4 +20,36 @@ a {
     height: 40px;
     width: 70px;
     object-fit: cover;
+}
+
+/* Modalità chiara */
+.dropdown-item {
+    background-color: #fff;
+    color: #000;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+    color: #000;
+}
+
+/* Modalità scura */
+.dropdown-item-dark {
+    background-color: #212529;
+    color: #fff;
+}
+
+.dropdown-item-dark:hover {
+    background-color: #1f1e1e;
+    color: #fff;
+}
+
+/* Bordi chiari per le card in modalità scura */
+.card-dark {
+    border: 1px solid #ffffff;
+}
+
+/* Mantieni i bordi scuri per la modalità chiara */
+.card-light {
+    border: 1px solid #dee2e6; /* Questo è il bordo predefinito di Bootstrap */
 }
