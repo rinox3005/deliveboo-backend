@@ -4,6 +4,26 @@ import "~resources/scss/app.scss";
 import * as bootstrap from "bootstrap";
 import.meta.glob(["../img/**"]);
 
+//gestione modale cancellazione piatto
+
+const deleteModalDish = document.getElementById("deleteModalDish");
+deleteModalDish.addEventListener("show.bs.modal", function (event) {
+    // Bottone che ha aperto il modale
+    const button = event.relatedTarget;
+
+    // Estrai le informazioni dai data-* attributes
+    const dishId = button.getAttribute("data-bs-dish-id");
+    const dishName = button.getAttribute("data-bs-dish-name");
+
+    // Popola il contenuto del modale
+    const dishNameInModal = document.getElementById("dishNameInModal");
+    dishNameInModal.textContent = dishName;
+
+    // Aggiorna l'azione del form
+    const deleteForm = document.getElementById("deleteDishForm");
+    deleteForm.action = `/user/dishes/${dishId}`;
+});
+
 // gestione modalitá chiaro-scuro
 
 // document.addEventListener("DOMContentLoaded", function () {

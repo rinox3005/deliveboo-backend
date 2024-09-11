@@ -126,8 +126,9 @@
 
                                         <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                             data-bs-target="#deleteModalDish" data-bs-dish-id="{{ $dish->id }}"
-                                            data-bs-dish-name="{{ $dish->name }}"><i
-                                                class="fas fa-trash me-1"></i>Cancella</button>
+                                            data-bs-dish-name="{{ $dish->name }}">
+                                            <i class="fas fa-trash me-1"></i>Cancella
+                                        </button>
 
                                     </td>
                                 </tr>
@@ -158,16 +159,16 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h5 class="fw-semibold">Delete Confirmation:</h5>
+                    <h5 class="fw-semibold">Conferma Cancellazione:</h5>
                     <p>
-                        Are you sure you want to delete
+                        Sei sicuro di voler eliminare il ristorante
                         <span class="fw-semibold">{{ $restaurant->name }}</span>
                         ?
                     </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Cancel
+                        Annulla
                     </button>
                     <form action="{{ route('user.restaurants.destroy', $restaurant) }}" method="POST"
                         style="display: inline-block">
@@ -175,7 +176,7 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">
                             <i class="fas fa-trash"></i>
-                            Delete Restaurant
+                            Elimina Ristorante
                         </button>
                     </form>
                 </div>
@@ -190,21 +191,20 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <h5 class="fw-semibold">Delete Confirmation:</h5>
+                        <h5 class="fw-semibold">Conferma Cancellazione:</h5>
                         <p>
                             Sei sicuro di voler eliminare
-                            <span class="fw-semibold">{{ $dish->name }}</span>?
+                            <span class="fw-semibold" id="dishNameInModal"></span>?
                         </p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                        <form action="{{ route('user.dishes.destroy', $dish) }}" method="POST"
-                            style="display: inline-block">
+                        <form id="deleteDishForm" method="POST" style="display: inline-block">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">
                                 <i class="fas fa-trash"></i>
-                                Cancella Piatto
+                                Elimina Piatto
                             </button>
                         </form>
                     </div>

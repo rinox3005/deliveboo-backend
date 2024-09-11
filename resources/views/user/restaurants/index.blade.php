@@ -4,13 +4,17 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
             <h1 class="fw-semibold d-inline my-4">Ristoranti di {{ Auth::user()->name }}</h1>
+
             <div class="d-inline">
-                <a href="{{ route('user.restaurants.create') }}" class="btn btn-success">
-                    <i class="fas fa-plus"></i>
-                    Aggiungi Nuovo Ristorante
-                </a>
+                @if (Auth::user()->restaurant === null)
+                    <a href="{{ route('user.restaurants.create') }}" class="btn btn-success">
+                        <i class="fas fa-plus"></i>
+                        Aggiungi Nuovo Ristorante
+                    </a>
+                @endif
             </div>
         </div>
+
 
         @if (session('message'))
             <div class="alert alert-success">
@@ -31,14 +35,17 @@
                     <div>
                         <a href="{{ route('user.restaurants.show', $restaurant) }}" class="btn btn-primary btn-sm">
                             <i class="fas fa-eye"></i>
+                            Dettagli
                         </a>
                         <a href="{{ route('user.restaurants.edit', $restaurant) }}" class="btn btn-warning btn-sm">
                             <i class="fas fa-pencil"></i>
+                            Modifica
                         </a>
                         <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                             data-bs-target="#deleteModal{{ $restaurant->id }}" data-bs-restaurant-id="{{ $restaurant->id }}"
                             data-bs-restaurant-title="{{ $restaurant->title }}">
                             <i class="fas fa-trash-can"></i>
+                            Cancella
                         </button>
                     </div>
                 </li>
