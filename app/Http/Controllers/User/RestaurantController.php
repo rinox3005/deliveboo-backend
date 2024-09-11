@@ -84,7 +84,10 @@ class RestaurantController extends Controller
             abort(403);
         }
 
-        return view('user.restaurants.show', compact('restaurant'));
+        // Carica i piatti associati al ristorante
+        $dishes = $restaurant->dishes;
+
+        return view('user.restaurants.show', compact('restaurant', 'dishes'));
     }
 
     /**

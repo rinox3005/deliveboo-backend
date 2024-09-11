@@ -9,6 +9,29 @@ class Dish extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'price',
+        'image_path',
+        'vegan',
+        'gluten_free',
+        'spicy',
+        'lactose_free',
+        'restaurant_id',
+        'slug',
+        'visible',
+    ];
+
+    // Imposta i valori di default per i campi booleani
+    protected $attributes = [
+        'vegan' => 0,
+        'gluten_free' => 0,
+        'spicy' => 0,
+        'lactose_free' => 0,
+        'visible' => 0,
+    ];
+
     /**
      * Relazione Many-to-One con Restaurant.
      * Un piatto appartiene a un ristorante.
