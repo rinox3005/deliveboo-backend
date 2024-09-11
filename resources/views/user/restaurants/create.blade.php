@@ -56,15 +56,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="type_id" class="form-label">Tipo di Ristorante</label>
-                        <select class="form-control" id="type_id" name="type_id">
-                            <option value="">Seleziona Tipo</option>
-                            @foreach ($types as $type)
-                                <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>
-                                    {{ $type->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <div class="mb-2">Tipi di Ristorante</div>
+                        @foreach ($types as $type)
+                            <input type="checkbox" class="btn-check" id="type-{{ $type->id }}" name="types[]"
+                                value="{{ $type->id }}" {{ in_array($type->id, old('types', [])) ? 'checked' : '' }} />
+                            <label class="btn btn-outline-primary mb-1" for="type-{{ $type->id }}">
+                                {{ $type->name }}
+                            </label>
+                        @endforeach
                     </div>
 
                     <a href="{{ route('user.restaurants.index') }}" class="btn btn-primary me-1">
