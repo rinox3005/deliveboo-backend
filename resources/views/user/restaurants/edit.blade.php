@@ -53,8 +53,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="image_path" class="form-label">Immagine</label>
-                        <input type="file" class="form-control" id="image_path" name="image_path" />
+                        <label for="preview" class="form-label">Immagine</label>
+                        <input type="file" class="form-control" id="preview" name="preview" />
                         @if ($restaurant->image_path)
                             <img src="{{ asset($restaurant->image_path) }}" alt="{{ $restaurant->name }}"
                                 class="img-thumbnail mt-2" width="150">

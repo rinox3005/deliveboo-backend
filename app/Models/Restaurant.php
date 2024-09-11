@@ -14,6 +14,7 @@ class Restaurant extends Model
         'city',
         'phone_number',
         'piva',
+        'image_path',
     ];
     /**
      * Relazione One-to-Many con Order.

@@ -117,15 +117,15 @@ class RestaurantController extends Controller
         $data['slug'] = Str::slug($data['name']);
 
         // Gestione del caricamento dell'immagine
-        if ($request->hasFile('image_path')) {
-
+        if ($request->hasFile('preview')) {
             // Elimina la vecchia immagine, se esiste
             if ($restaurant->image_path) {
                 $oldFilePath = str_replace('storage/', '', $restaurant->image_path);
                 Storage::disk('public')->delete($oldFilePath);
             }
 
-            $file = $request->file('image_path');
+            // Salva la nuova immagine
+            $file = $request->file('preview');
             $fileName = $file->getClientOriginalName();
             $imagePath = $file->storeAs('restaurants', $fileName, 'public');
             $data['image_path'] = '/storage/' . $imagePath;
@@ -145,6 +145,7 @@ class RestaurantController extends Controller
 
         return redirect()->route('user.restaurants.show', $restaurant)->with('message', 'Ristorante ' . $restaurant->name . ' aggiornato con successo');
     }
+
 
     /**
      * Remove the specified resource from storage.
