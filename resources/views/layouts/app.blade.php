@@ -79,9 +79,9 @@
 
                                 <div id="theme-dropdown-menu" class="dropdown-menu dropdown-menu-right"
                                     aria-labelledby="navbarDropdown">
-                                    <a id="theme-toggle" class="dropdown-item" href="#">
+                                    {{-- <a id="theme-toggle" class="dropdown-item" href="#">
                                         <i id="theme-icon" class="fas fa-moon"></i> Dark Mode
-                                    </a>
+                                    </a> --}}
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                      document.getElementById('logout-form').submit();">
