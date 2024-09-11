@@ -73,9 +73,9 @@
                         @endforeach
                     </div>
 
-                    <a href="{{ route('user.restaurants.index') }}" class="btn btn-primary me-1">
+                    <a href="{{ route('user.dashboard') }}" class="btn btn-primary me-1">
                         <i class="fas fa-arrow-left"></i>
-                        Torna alla lista
+                        Torna alla Dashboard
                     </a>
                     <button type="submit" class="btn btn-primary">
                         Aggiorna Ristorante

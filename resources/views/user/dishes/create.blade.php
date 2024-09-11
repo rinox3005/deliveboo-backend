@@ -75,9 +75,9 @@
                         <label class="btn btn-outline-primary mb-1" for="visible">Visibile</label>
                     </div>
 
-                    <a href="{{ route('user.dishes.index') }}" class="btn btn-primary me-1">
+                    <a href="{{ route('user.restaurants.show', $restaurant) }}" class="btn btn-primary me-1">
                         <i class="fas fa-arrow-left"></i>
-                        Torna alla lista
+                        Torna al Ristorante
                     </a>
                     <button type="submit" class="btn btn-primary">
                         Crea Piatto

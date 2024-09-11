@@ -53,9 +53,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.dashboard') }}">{{ __('Dashboard') }}</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.restaurants.index') }}">{{ __('Ristoranti') }}</a>
-                        </li>
+                        </li> --}}
                     </ul>
 
                     <!-- Right Side Of Navbar -->

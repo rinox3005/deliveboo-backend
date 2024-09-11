@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -12,7 +13,11 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('user.dashboard');
+        // Recupera i ristoranti associati all'utente autenticato
+        $restaurants = Auth::user()->restaurant ? [Auth::user()->restaurant] : [];
+
+        // Passa i ristoranti alla vista
+        return view('user.dashboard', compact('restaurants'));
     }
 
     /**

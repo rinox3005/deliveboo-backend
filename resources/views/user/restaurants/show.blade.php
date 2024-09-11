@@ -147,9 +147,9 @@
             </div>
         </div>
         <div class="d-flex justify-content-end mt-3">
-            <a href="{{ route('user.restaurants.index') }}" class="btn btn-primary me-2">
+            <a href="{{ route('user.dashboard') }}" class="btn btn-primary me-2">
                 <i class="fas fa-arrow-left"></i>
-                Torna ai ristoranti
+                Torna alla Dashboard
             </a>
         </div>
     </div>

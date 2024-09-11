@@ -27,7 +27,10 @@ class DishController extends Controller
      */
     public function create()
     {
-        return view('user.dishes.create');
+        // Ottieni il ristorante associato all'utente loggato
+        $restaurant = auth()->user()->restaurant;
+
+        return view('user.dishes.create', compact('restaurant'));
     }
 
     /**
@@ -100,7 +103,10 @@ class DishController extends Controller
             abort(403);
         }
 
-        return view('user.dishes.edit', compact('dish'));
+        // Ottieni il ristorante associato all'utente loggato
+        $restaurant = auth()->user()->restaurant;
+
+        return view('user.dishes.edit', compact('dish', 'restaurant'));
     }
 
     /**
@@ -144,7 +150,10 @@ class DishController extends Controller
         // Aggiorna i dati del piatto
         $dish->update($data);
 
-        return redirect()->route('user.dishes.show', $dish)->with('message', 'Piatto aggiornato con successo');
+        // Ottieni il ristorante associato al piatto
+        $restaurant = auth()->user()->restaurant;
+
+        return redirect()->route('user.restaurants.show', $restaurant)->with('message', 'Piatto aggiornato con successo');
     }
 
     /**
