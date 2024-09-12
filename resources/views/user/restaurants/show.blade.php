@@ -186,25 +186,25 @@
 
     <!-- Modal for delete confirmation for dish -->
     @if ($dishes->isNotEmpty())
-        <div class="modal fade" id="deleteModalDish" tabindex="-1" aria-labelledby="deleteModalDishLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="deleteModalDish" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <h5 class="fw-semibold">Conferma Cancellazione:</h5>
+                        <h5 class="fw-semibold">Delete Confirmation:</h5>
                         <p>
                             Sei sicuro di voler eliminare
-                            <span class="fw-semibold" id="dishNameInModal"></span>?
+                            <span class="fw-semibold">{{ $dish->name }}</span>?
                         </p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                        <form id="deleteDishForm" method="POST" style="display: inline-block">
+                        <form action="{{ route('user.dishes.destroy', $dish) }}" method="POST"
+                            style="display: inline-block">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">
                                 <i class="fas fa-trash"></i>
-                                Elimina Piatto
+                                Cancella Piatto
                             </button>
                         </form>
                     </div>

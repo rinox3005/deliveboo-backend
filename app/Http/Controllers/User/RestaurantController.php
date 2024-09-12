@@ -54,8 +54,6 @@ class RestaurantController extends Controller
             $restaurant->image_path = "/storage/{$path}";
         }
 
-
-
         // Associa il ristorante all'utente loggato
         $restaurant->user_id = auth()->id();
 
