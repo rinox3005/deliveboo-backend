@@ -17,37 +17,38 @@
                     </div>
                 @endif
 
-                <form action="{{ route('user.restaurants.update', $restaurant) }}" method="POST"
+                <form id="restaurant-edit-form" action="{{ route('user.restaurants.update', $restaurant) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
                     <div class="mb-3">
-                        <label for="name" class="form-label">Nome Ristorante</label>
+                        <label for="name" class="form-label">Nome Ristorante <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="name" name="name"
                             value="{{ old('name', $restaurant->name) }}" required />
                     </div>
 
                     <div class="mb-3">
-                        <label for="address" class="form-label">Indirizzo</label>
+                        <label for="address" class="form-label">Indirizzo <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="address" name="address"
                             value="{{ old('address', $restaurant->address) }}" required />
                     </div>
 
                     <div class="mb-3">
-                        <label for="city" class="form-label">Città</label>
+                        <label for="city" class="form-label">Città <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="city" name="city"
                             value="{{ old('city', $restaurant->city) }}" required />
                     </div>
 
                     <div class="mb-3">
-                        <label for="phone_number" class="form-label">Numero di Telefono</label>
+                        <label for="phone_number" class="form-label">Numero di Telefono <span
+                                class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="phone_number" name="phone_number"
                             value="{{ old('phone_number', $restaurant->phone_number) }}" required />
                     </div>
 
                     <div class="mb-3">
-                        <label for="piva" class="form-label">Partita IVA</label>
+                        <label for="piva" class="form-label">Partita IVA <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="piva" name="piva"
                             value="{{ old('piva', $restaurant->piva) }}" required />
                     </div>
@@ -62,7 +63,10 @@
                     </div>
 
                     <div class="mb-3">
-                        <div class="mb-2">Tipi di Ristorante</div>
+                        <div class="mb-2">Tipi di Ristorante <span class="text-danger">*</span></div>
+                        <div id="type-error" class="text-danger mb-3" style="display: none;">
+                            Seleziona almeno una tipologia di ristorante!
+                        </div>
                         @foreach ($types as $type)
                             <input type="checkbox" class="btn-check" id="type-{{ $type->id }}" name="types[]"
                                 value="{{ $type->id }}"
@@ -84,4 +88,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('restaurant-edit-form').addEventListener('submit', function(event) {
+            var checkboxes = document.querySelectorAll('input[name="types[]"]');
+            var checked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+            if (!checked) {
+                event.preventDefault(); // Blocca l'invio del form
+                document.getElementById('type-error').style.display = 'block'; // Mostra l'errore
+            } else {
+                document.getElementById('type-error').style.display = 'none'; // Nascondi l'errore
+            }
+        });
+    </script>
 @endsection

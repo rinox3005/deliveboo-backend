@@ -69,7 +69,7 @@ class RestaurantController extends Controller
         }
 
         // Reindirizza alla pagina dell'indice dei ristoranti
-        return redirect()->route('user.restaurants.index')->with('success', 'Ristorante creato con successo.');
+        return redirect()->route('user.dashboard')->with('success', 'Ristorante creato con successo.');
     }
 
     /**
@@ -167,6 +167,6 @@ class RestaurantController extends Controller
         $restaurant_name = $restaurant->name;
         $restaurant->delete();
 
-        return redirect()->route('user.restaurants.index')->with('message', 'Ristorante ' . $restaurant_name . ' eliminato con successo');
+        return redirect()->route('user.dashboard')->with('message', 'Ristorante ' . $restaurant_name . ' eliminato con successo');
     }
 }
