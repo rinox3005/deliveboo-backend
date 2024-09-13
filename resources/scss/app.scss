@@ -65,7 +65,11 @@ a {
 
 @media (max-width: 960px) {
     .custom-sidebar {
-        width: 90px;
+        width: 93px;
+    }
+
+    .custom-ml {
+        margin-left: 10.66667%;
     }
     /* Nasconde il testo "Area Riservata" */
     .custom-sidebar a span {
