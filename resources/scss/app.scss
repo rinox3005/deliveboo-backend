@@ -31,8 +31,20 @@ a {
     height: 42px;
 }
 
-.bg-main {
+.bg-custom-primary {
     background-color: #ec7600;
+}
+
+.bg-custom-secondary {
+    background-color: #434848;
+}
+
+.bg-custom-tertiary {
+    background-color: #ec7600;
+}
+
+.nav-link.active {
+    background-color: grey !important;
 }
 // /* Modalità chiara */
 // .dropdown-item {
