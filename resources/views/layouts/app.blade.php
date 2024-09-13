@@ -26,8 +26,8 @@
     <div id="app">
 
 
-        <nav class="navbar navbar-expand-md shadow-sm bg-custom-primary">
-            <div class="container">
+        <nav class="navbar navbar-expand-md shadow-sm bg-custom-primary sticky-top">
+            <div class="container-fluid me-5 ms-3">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                     <div class="logo_laravel">
                         <img class="logo" src="{{ Vite::asset('resources/img/deliveboo_logo_light.png') }}"
@@ -45,10 +45,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link text-white fs-6 fw-semibold"
                                 href="{{ route('user.dashboard') }}">{{ __('Dashboard') }}</a>
-                        </li>
+                        </li> --}}
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.restaurants.index') }}">{{ __('Ristoranti') }}</a>
                         </li> --}}
@@ -98,7 +98,7 @@
             </div>
         </nav>
 
-        <main class="">
+        <main>
             @yield('content')
         </main>
     </div>
