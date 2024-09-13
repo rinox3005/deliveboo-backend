@@ -171,4 +171,17 @@ class RestaurantController extends Controller
 
         return redirect()->route('user.restaurants.index')->with('message', 'Ristorante ' . $restaurant_name . ' eliminato con successo');
     }
+
+
+
+    // //(LM) metodo apiIndex per restituire i ristoranti in formato JSON
+    // public function apiIndex()
+    // {
+
+    //     //si ottengono tutti i ristoranti
+    //     $restaurants = Restaurant::with('types')->get();
+
+    //     //restituzione dati in formato json
+    //     return response()->json($restaurants);
+    // }
 }
