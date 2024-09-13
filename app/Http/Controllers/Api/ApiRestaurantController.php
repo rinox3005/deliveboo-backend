@@ -14,26 +14,24 @@ class ApiRestaurantController extends Controller
      */
     public function apiIndex(Request $request)
     {
+        // Ottieni i types dalla query string (es. ?types=italian,mexican)
         $typeFilters = $request->query('types');
 
-        // Crea la query di base con la relazione 'types'
+        // Se non ci sono filtri, ottieni tutti i ristoranti con i loro tipi
         $query = Restaurant::with('types');
 
-        // Filtra per tipi, se il filtro è presente
+        // Se ci sono filtri, filtra in base ai types selezionati
         if ($typeFilters) {
             $typesArray = explode(',', $typeFilters);
             $query->whereHas('types', function ($q) use ($typesArray) {
-                $q->whereIn('name', $typesArray);
+                $q->whereIn('name', $typesArray); // Filtra per nome del tipo
             });
         }
 
-        // Esegui la query e ottieni i ristoranti
         $restaurants = $query->get();
 
         return response()->json($restaurants);
     }
-
-
 
     /**
      * Display the specified resource.
