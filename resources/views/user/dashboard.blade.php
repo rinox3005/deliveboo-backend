@@ -33,7 +33,7 @@
                                 <svg class="bi pe-none me-2" width="16" height="16">
                                     <use xlink:href="#grid"></use>
                                 </svg>
-                                Products
+                                Ordini
                             </a>
                         </li>
                         <li>
@@ -41,7 +41,7 @@
                                 <svg class="bi pe-none me-2" width="16" height="16">
                                     <use xlink:href="#people-circle"></use>
                                 </svg>
-                                Customers
+                                Menú
                             </a>
                         </li>
                     </ul>
