@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\ApiRestaurantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaymentController; // Importa il controller
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +26,6 @@ Route::get('restaurants', [ApiRestaurantController::class, 'apiIndex']);
 Route::get('restaurants/{slug}', [ApiRestaurantController::class, 'show']);
 
 Route::get('types', [ApiRestaurantController::class, 'getTypes']);
+
+Route::get('/payment/token', [PaymentController::class, 'generateToken']);
+Route::post('/payment/process', [PaymentController::class, 'processPayment']);
