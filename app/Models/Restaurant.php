@@ -18,6 +18,7 @@ class Restaurant extends Model
         'image_path',
     ];
 
+    // appends per il mutator (restaurant)
     protected $appends = ['image_path_url'];
 
     /**
@@ -56,6 +57,7 @@ class Restaurant extends Model
         return $this->belongsTo(User::class);
     }
 
+    // mutator per image_path_url
     protected function imagePathUrl(): Attribute
     {
         return new Attribute(

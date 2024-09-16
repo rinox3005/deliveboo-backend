@@ -24,6 +24,7 @@ class Dish extends Model
         'visible',
     ];
 
+    // appends per il mutator (dish)
     protected $appends = ['image_path_url'];
 
     // Imposta i valori di default per i campi booleani
@@ -53,6 +54,8 @@ class Dish extends Model
         return $this->belongsToMany(Order::class, 'dish_order')->withPivot('quantity');
     }
 
+
+     // mutator per image_path_url 
     protected function imagePathUrl(): Attribute
     {
         return new Attribute(
