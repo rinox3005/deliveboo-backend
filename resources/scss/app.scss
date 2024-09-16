@@ -31,9 +31,78 @@ a {
     height: 42px;
 }
 
-.bg-main {
+.bg-custom-primary {
     background-color: #ec7600;
 }
+
+.bg-custom-secondary {
+    background-color: #434848;
+}
+
+.bg-custom-tertiary {
+    background-color: #ec7600;
+}
+
+.nav-link.active {
+    background-color: grey !important;
+}
+
+.custom-ml {
+    margin-left: 16.66667%;
+}
+
+.custom-sidebar {
+    height: calc(100vh - 68px);
+    position: fixed;
+    top: 68px;
+}
+
+.custom-sidebar a .fa-user-gear {
+    display: none;
+}
+
+// RESPONSIVITA' DASHBOARD
+
+@media (max-width: 960px) {
+    .custom-sidebar {
+        width: 93px;
+    }
+
+    .custom-ml {
+        margin-left: 10.66667%;
+    }
+    /* Nasconde il testo "Area Riservata" */
+    .custom-sidebar a span {
+        display: none;
+    }
+
+    .custom-sidebar a .fa-user-gear {
+        display: block;
+    }
+
+    /* Allinea al centro l'icona di "Area Riservata" e aumentane la dimensione */
+    .custom-sidebar a i {
+        font-size: 1.8rem; /* Aumenta la dimensione dell'icona */
+        margin: auto; /* Centra l'icona */
+        display: block; /* Assicura che l'icona si comporti come un blocco */
+        padding: 0;
+        margin-right: 0;
+    }
+
+    /* Nasconde i testi delle voci di menu e mantiene solo le icone */
+    .custom-sidebar .nav-link {
+        justify-content: center; /* Allinea le icone al centro */
+    }
+
+    .custom-sidebar .nav-link i {
+        font-size: 1.8rem; /* Aumenta la dimensione delle icone nel menu */
+    }
+
+    .custom-sidebar .nav-link span {
+        display: none; /* Nasconde il testo dei link */
+    }
+}
+
 // /* Modalità chiara */
 // .dropdown-item {
 //     background-color: #fff;
