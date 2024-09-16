@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Dish extends Model
 {
@@ -22,6 +23,9 @@ class Dish extends Model
         'slug',
         'visible',
     ];
+
+    // appends per il mutator (dish)
+    protected $appends = ['image_path_url'];
 
     // Imposta i valori di default per i campi booleani
     protected $attributes = [
@@ -48,5 +52,14 @@ class Dish extends Model
     public function orders()
     {
         return $this->belongsToMany(Order::class, 'dish_order')->withPivot('quantity');
+    }
+
+
+     // mutator per image_path_url 
+    protected function imagePathUrl(): Attribute
+    {
+        return new Attribute(
+            get: fn () => 'http://localhost:8000' . $this->image_path,
+        );
     }
 }

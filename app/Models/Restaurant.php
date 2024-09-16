@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Restaurant extends Model
 {
@@ -16,6 +17,10 @@ class Restaurant extends Model
         'piva',
         'image_path',
     ];
+
+    // appends per il mutator (restaurant)
+    protected $appends = ['image_path_url'];
+
     /**
      * Relazione One-to-Many con Order.
      * Un ristorante può avere molti ordini.
@@ -50,5 +55,13 @@ class Restaurant extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    // mutator per image_path_url
+    protected function imagePathUrl(): Attribute
+    {
+        return new Attribute(
+            get: fn () => 'http://localhost:8000' . $this->image_path,
+        );
     }
 }
