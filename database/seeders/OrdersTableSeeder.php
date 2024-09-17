@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Dish;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Order;
@@ -140,40 +141,54 @@ class OrdersTableSeeder extends Seeder
         // Crea un'istanza di Faker per generare dati casuali
         $faker = Faker::create();
 
-        // Creo 20 ordini casuali
-        for ($i = 0; $i < count($user_names); $i++) {
+        // Recupera tutti i ristoranti
+        $restaurants = Restaurant::all();
 
-            $order = new Order();
+        // Esegui un ciclo su ciascun ristorante
+        foreach ($restaurants as $restaurant) {
+            // Crea 400 ordini casuali per ogni ristorante
+            for ($i = 0; $i < 400; $i++) {
 
-            // Associo l'ordine a un ristorante casuale
-            $order->restaurant_id = Restaurant::inRandomOrder()->first()->id;
+                $order = new Order();
 
-            // Dati utente casuali
-            $order->user_name = $user_names[$i];
-            $order->user_email = $emails[$i];
-            $order->user_address = $addresses[$i];
-            $order->user_phone = $phoneNumber[$i];
+                // Associa l'ordine al ristorante corrente
+                $order->restaurant_id = $restaurant->id;
 
-            // Data e ora dell'ordine
-            $order->order_date_time = $faker->dateTimeThisYear();
-            $order->delivery_date = $faker->date();
-            $order->delivery_time = $faker->time();
+                // Dati utente casuali
+                $order->user_name = $faker->randomElement($user_names);
+                $order->user_email = $faker->randomElement($emails);
+                $order->user_address = $faker->randomElement($addresses);
+                $order->user_phone = $faker->randomElement($phoneNumber);
 
-            // Prezzo totale casuale e slug
-            $order->total_price = $faker->randomFloat(2, 10, 50);
-            $order->notes = $faker->randomElement($notes);
+                // Data e ora dell'ordine, generata tra oggi e 3 mesi fa
+                $order->order_date_time = $faker->dateTimeBetween('-3 months', 'now');
+                $order->delivery_date = $order->order_date_time->format('Y-m-d'); // Usa la stessa data dell'ordine per la consegna
+                $order->delivery_time = $faker->time(); // Orario casuale
 
-            // Assegna uno slug temporaneo prima del primo salvataggio
-            $order->slug = 'temp-slug';
+                // Genera lo slug temporaneo prima di salvare l'ordine
+                $order->notes = $faker->randomElement($notes);
+                $order->slug = 'temp-slug';
 
-            // Salva l'ordine nel database
-            $order->save();
+                // Assegna un prezzo totale casuale tra 10 e 100
+                $order->total_price = $faker->randomFloat(2, 10, 100);
 
-            // Genera lo slug utilizzando "NO" + ID dell'ordine
-            $order->slug = 'NO' . $order->id;
+                // Salva l'ordine per ottenere l'ID
+                $order->save();
 
-            // Salva l'ordine nel database dopo aver creato lo slug
-            $order->save();
+                // Aggiungi i piatti all'ordine (seleziona piatti solo per questo ristorante)
+                $dishes = Dish::where('restaurant_id', $restaurant->id)->inRandomOrder()->take(rand(1, 5))->get(); // Seleziona tra 1 e 5 piatti del ristorante
+
+                foreach ($dishes as $dish) {
+                    $quantity = rand(1, 5); // Quantità casuale per ogni piatto
+                    $order->dishes()->attach($dish->id, ['quantity' => $quantity]);
+                }
+
+                // Genera lo slug finale utilizzando l'ID dell'ordine
+                $order->slug = 'NO' . $order->id;
+
+                // Salva nuovamente l'ordine con lo slug aggiornato
+                $order->save();
+            }
         }
 
         // Riabilito i vincoli delle chiavi esterne

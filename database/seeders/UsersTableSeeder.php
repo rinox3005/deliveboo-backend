@@ -21,21 +21,105 @@ class UsersTableSeeder extends Seeder
         // Svuoto la tabella prima di inserire nuovi record
         User::truncate();
 
-        $user = new User();
-        $user->name = 'Mario Rossi';
-        $user->email = 'owner1@test.com';
-        $user->password = Hash::make('password');
-        $user->remember_token = Str::random(10);
-        $user->email_verified_at = now();
-        $user->save();
+        // Array di nomi italiani comuni
+        $italianFirstNames = [
+            'Mario',
+            'Luigi',
+            'Giovanni',
+            'Francesco',
+            'Marco',
+            'Luca',
+            'Matteo',
+            'Alessandro',
+            'Andrea',
+            'Antonio',
+            'Giorgio',
+            'Roberto',
+            'Stefano',
+            'Paolo',
+            'Gabriele',
+            'Pietro',
+            'Simone',
+            'Riccardo',
+            'Davide',
+            'Daniele',
+            'Carlo',
+            'Giuseppe',
+            'Michele',
+            'Fabio',
+            'Vincenzo',
+            'Filippo',
+            'Enrico',
+            'Emanuele',
+            'Alberto',
+            'Claudio',
+            'Leonardo',
+            'Sergio',
+            'Nicola',
+            'Valentino',
+            'Federico',
+            'Massimo',
+            'Giulio',
+            'Fabrizio',
+            'Cristiano',
+            'Lorenzo'
+        ];
 
-        $user = new User();
-        $user->name = 'Luca Bianchi';
-        $user->email = 'owner2@test.com';
-        $user->password = Hash::make('password');
-        $user->remember_token = Str::random(10);
-        $user->email_verified_at = now();
-        $user->save();
+        // Array di cognomi italiani comuni
+        $italianLastNames = [
+            'Rossi',
+            'Ferrari',
+            'Russo',
+            'Bianchi',
+            'Romano',
+            'Gallo',
+            'Costa',
+            'Fontana',
+            'Conti',
+            'Esposito',
+            'Ricci',
+            'Bruno',
+            'Greco',
+            'De Luca',
+            'Mancini',
+            'Lombardi',
+            'Barbieri',
+            'Moretti',
+            'Mariani',
+            'Rizzo',
+            'Giordano',
+            'Colombo',
+            'Martini',
+            'Leone',
+            'Longo',
+            'Sanna',
+            'Gatti',
+            'Serra',
+            'Ferri',
+            'Bianco',
+            'Marini',
+            'Cattaneo',
+            'Grassi',
+            'Pellegrini',
+            'Palumbo',
+            'Rinaldi',
+            'Battaglia',
+            'Amato',
+            'Monti',
+            'Donati',
+            'Santoro'
+        ];
+
+        for ($i = 1; $i <= 40; $i++) {
+            $user = new User();
+            // Genera un nome e un cognome casuali
+            $user->name = $italianFirstNames[array_rand($italianFirstNames)] . ' ' . $italianLastNames[array_rand($italianLastNames)];
+            $user->email = 'owner' . $i . '@test.com';
+            $user->password = Hash::make('password');
+            $user->remember_token = Str::random(10);
+            $user->email_verified_at = now();
+            $user->save();
+        }
 
         // Riabilito i vincoli delle chiavi esterne
         Schema::enableForeignKeyConstraints();

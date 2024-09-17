@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('user_email', 50);
             $table->string('user_address', 100);
             $table->string('user_phone', 20);
-            $table->timestamp('order_date_time');
+            $table->dateTime('order_date_time');
             $table->date('delivery_date');
             $table->time('delivery_time');
-            $table->decimal('total_price', 5, 2);
+            $table->decimal('total_price', 5, 2)->default(0);
             $table->string('slug', 255);
             $table->string('notes', 255)->nullable();
             $table->timestamps();
