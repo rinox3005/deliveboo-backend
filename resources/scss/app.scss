@@ -8,9 +8,9 @@
 /*resources/scss/app.scss*/
 @import "~bootstrap/scss/bootstrap";
 
-// body {
-//     background-color: $body-bg-color;
-// }
+body {
+    font-family: "Poppins";
+}
 
 a {
     text-decoration: none;
@@ -66,6 +66,10 @@ a {
     margin-left: 20px;
 }
 
+.custom-btn {
+    border-radius: 12px;
+}
+
 // RESPONSIVITA' DASHBOARD
 
 @media (max-width: 960px) {
@@ -112,7 +116,7 @@ a {
     }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 640px) {
     .custom-ml {
         margin-left: 20.66667%;
     }

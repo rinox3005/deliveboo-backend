@@ -41,14 +41,14 @@
             {{-- Contenuto principale --}}
             <div class="container-fluid custom-ml overflow-auto">
                 <div class="mx-4 my-4 flex-grow-1">
-                    <h5 class="pb-3 mb-0">Ben tornato {{ Auth::user()->name }}</h5>
+                    <h5 class="pb-3 mb-0 fw-semibold">Ben tornato {{ Auth::user()->name }} !</h5>
                     <p class="py-3">Di seguito puoi visualizzare i tuoi ristoranti e le statistiche relative a vendite e
                         ordini</p>
                     <div class="col-11 col-md-12">
                         <div class="card">
                             <div class="card-header">
                                 @if (!empty($restaurants) && count($restaurants) > 0)
-                                    <h5 class="dashboard-card-header">{{ __('Ristoranti associati a te') }}</h5>
+                                    <h5 class="dashboard-card-header fw-semibold">{{ __('Ristoranti associati a te') }}</h5>
                                 @endif
                             </div>
 
@@ -62,15 +62,16 @@
                                 <div class="row">
                                     @if (!empty($restaurants) && count($restaurants) > 0)
                                         @foreach ($restaurants as $restaurant)
-                                            <div class="col-md-4">
+                                            <div class="col-lg-3 col-md-4">
                                                 <div class="card mb-4">
                                                     <img src="{{ $restaurant->image_path ? asset($restaurant->image_path) : Vite::asset('resources/img/restaurant-placeholder-show.png') }}"
                                                         class="card-img-top" alt="{{ $restaurant->name }}">
                                                     <div class="card-body">
-                                                        <h4 class="card-title mb-3 text-center">{{ $restaurant->name }}</h4>
+                                                        <h5 class="card-title mb-3 text-center fw-semibold">
+                                                            {{ $restaurant->name }}</h5>
                                                         <div class="d-flex justify-content-center">
                                                             <a href="{{ route('user.restaurants.show', $restaurant) }}"
-                                                                class="btn btn-primary">Dettagli</a>
+                                                                class="btn btn-warning btn-sm custom-btn bg-custom-primary">Dettagli</a>
                                                         </div>
                                                     </div>
                                                 </div>
