@@ -1,0 +1,44 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="fw-semibold d-inline my-4">Ordini di {{ $restaurant->name }}</h1>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>N. Ordine</th>
+                    <th>Data/Ora</th>
+                    <th>Cliente</th>
+                    <th>Indirizzo</th>
+                    <th>Totale</th>
+                    <th>Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($orders as $order)
+                    <tr class="align-middle">
+                        <td>
+                            Ordine #{{ $order->id }}
+                        </td>
+                        <td>{{ \Carbon\Carbon::parse($order->order_date_time)->format('d/m/Y - H:i') }}</td>
+                        <td>{{ $order->user_name }}</td>
+                        <td>{{ $order->user_address }}</td>
+                        <td>{{ $order->total_price }} €</td>
+                        <td>
+                            <a href="{{ route('user.orders.show', $order) }}" class="btn btn-info btn-sm me-1 my-1"><i
+                                    class="fas fa-eye me-1"></i>Dettagli</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+            <a href="{{ route('user.restaurants.show', $restaurant) }}" class="btn btn-warning me-2 bg-custom-primary">
+                <i class="fas fa-arrow-left"></i>
+                Torna al Ristorante
+            </a>
+        </div>
+    </div>
+@endsection

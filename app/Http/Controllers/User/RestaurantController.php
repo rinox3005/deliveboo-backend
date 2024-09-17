@@ -10,6 +10,7 @@ use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class RestaurantController extends Controller
 {
@@ -85,7 +86,17 @@ class RestaurantController extends Controller
         // Carica i piatti associati al ristorante
         $dishes = $restaurant->dishes;
 
-        return view('user.restaurants.show', compact('restaurant', 'dishes'));
+        // Ottieni la data odierna con Carbon
+        $today = Carbon::today();
+
+        // Carica gli ultimi 10 ordini ricevuti in data odierna, ordinati per data decrescente
+        $recentOrders = $restaurant->orders()
+            ->whereDate('order_date_time', $today) // Filtra solo gli ordini di oggi
+            ->latest('order_date_time') // Ordina per data di ordine decrescente
+            ->take(10) // Prendi solo i 10 più recenti
+            ->get();
+
+        return view('user.restaurants.show', compact('restaurant', 'dishes', 'recentOrders'));
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -12,7 +13,17 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        // Ottieni l'utente loggato
+        $user = auth()->user();
+
+        // Recupera il ristorante dell'utente loggato
+        $restaurant = $user->restaurant;
+
+        // Recupera tutti gli ordini associati al ristorante
+        $orders = $restaurant->orders()->get();
+
+        // Passa sia gli ordini che il ristorante alla vista
+        return view('user.orders.index', compact('orders', 'restaurant'));
     }
 
     /**
@@ -34,9 +45,17 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Order $order)
     {
-        //
+        // Verifica che l'ordine appartenga al ristorante dell'utente loggato
+        if ($order->restaurant->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        // Carica i piatti associati all'ordine
+        $dishes = $order->dishes;  // Supponendo che la relazione si chiami 'dishes'
+
+        return view('user.orders.show', compact('order', 'dishes'));
     }
 
     /**

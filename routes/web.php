@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\DishController;
+use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,11 @@ Route::middleware(['auth', 'verified'])
             //dishes
             Route::resource('dishes', DishController::class)->parameters([
                 'dishes' => 'dish:slug',
+            ]);
+
+            //orders
+            Route::resource('orders', OrderController::class)->parameters([
+                'orders' => 'order:slug',
             ]);
         }
     );

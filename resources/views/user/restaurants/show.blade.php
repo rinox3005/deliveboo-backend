@@ -87,6 +87,53 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- Lista ultimi 10 ordini -->
+        <div class="card mt-4">
+            <div class="card-header bg-info d-flex justify-content-between align-items-center text-white">
+                <h2 class="mb-0">Ultimi Ordini</h2>
+            </div>
+            <div class="card-body">
+                @if ($recentOrders->isNotEmpty())
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>N. Ordine</th>
+                                <th>Cliente</th>
+                                <th>Indirizzo</th>
+                                <th>Totale</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($recentOrders as $recentOrder)
+                                <tr class="align-middle">
+                                    <td>
+                                        Ordine #{{ $recentOrder->id }}
+                                    </td>
+                                    <td>{{ $recentOrder->user_name }}</td>
+                                    <td>{{ $recentOrder->user_address }}</td>
+                                    <td>{{ $recentOrder->total_price }} €</td>
+                                    <td>
+                                        <a href="{{ route('user.orders.show', $recentOrder) }}"
+                                            class="btn btn-info btn-sm me-1 my-1"><i
+                                                class="fas fa-eye me-1"></i>Dettagli</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <p>Non hai ancora ricevuto nessun ordine oggi.</p>
+                    <a href="{{ route('user.orders.index') }}" class="btn btn-primary"><i
+                            class="fas fa-list-check me-2"></i>Vai alla lista completa degli
+                        ordini</a>
+                @endif
+            </div>
+        </div>
+
+
         <!-- Lista dei piatti associati -->
         <div class="card mt-4">
             <div class="card-header bg-success text-white">
@@ -186,7 +233,8 @@
 
     <!-- Modal for delete confirmation for dish -->
     @if ($dishes->isNotEmpty())
-        <div class="modal fade" id="deleteModalDish" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal fade" id="deleteModalDish" tabindex="-1" aria-labelledby="deleteModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-body">
