@@ -27,7 +27,7 @@
 
 
         <nav class="navbar navbar-expand-md shadow-sm bg-custom-primary sticky-top">
-            <div class="container-fluid me-5 ms-3">
+            <div class="container-fluid nav-spaces">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                     <div class="logo_laravel">
                         <img class="logo" src="{{ Vite::asset('resources/img/deliveboo_logo_light.png') }}"

@@ -48,7 +48,7 @@
                         <div class="card">
                             <div class="card-header">
                                 @if (!empty($restaurants) && count($restaurants) > 0)
-                                    <h5>{{ __('Ristoranti associati a te') }}</h5>
+                                    <h5 class="dashboard-card-header">{{ __('Ristoranti associati a te') }}</h5>
                                 @endif
                             </div>
 

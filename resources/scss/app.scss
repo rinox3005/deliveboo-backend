@@ -61,6 +61,11 @@ a {
     display: none;
 }
 
+.nav-spaces {
+    margin-right: 35px;
+    margin-left: 20px;
+}
+
 // RESPONSIVITA' DASHBOARD
 
 @media (max-width: 960px) {
@@ -100,6 +105,35 @@ a {
 
     .custom-sidebar .nav-link span {
         display: none; /* Nasconde il testo dei link */
+    }
+    .nav-spaces {
+        margin-right: 5px;
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 540px) {
+    .custom-ml {
+        margin-left: 20.66667%;
+    }
+
+    .nav-spaces {
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+    .dashboard-card-header {
+        font-size: 17px;
+    }
+
+    .custom-sidebar a i {
+        font-size: 1.8rem; /* Aumenta la dimensione dell'icona */
+    }
+}
+
+@media (max-width: 376px) {
+    .dashboard-card-header {
+        font-size: 15px;
     }
 }
 
