@@ -124,8 +124,38 @@
     <script>
         let chart;
         const idrest=document.getElementById("id").value;
+        const ctx =document.getElementById('barChart');
 
-          function getGraph(){
+        function creationGraph(orders,month,year){
+            chart = new Chart(ctx,{
+                type:'bar',
+                data:{
+                    labels:orders.map(row => row.day),
+                    datasets:[{
+                        label:"Ordini nel mese "+ month + " " + year,
+                        data:orders.map(row => row.ordini),
+                    }]
+                }
+            })
+        }
+
+        function calcDays(nGiorni,results){
+            for(i=0;i<parseInt(nGiorni);i++)
+                {
+                    if(!results[i]){
+                        let obj={ordini:0,day:i+1};
+                        results.splice(i, 0, obj);
+                    }
+                    else if(i+1!=results[i].day)
+                    {
+                        let obj={ordini:0,day:i+1};
+                        results.splice(i, 0, obj);
+                    }
+                }
+            return results;
+        }
+
+        function getGraph(){
             let year=document.getElementById("year").value;
             let month=document.getElementById("month").value;
             let today = new Date();
@@ -144,7 +174,6 @@
             },
             success:function(data){
                 const results = data.results;
-                const ctx =document.getElementById('barChart');
 
                 if(chart){
                     chart.destroy();
@@ -152,32 +181,9 @@
                 
 
                 if(year && month){
-                    console.log(results);
                     numeroGiorniMeseCorrente = new Date(year, month, 0).getDate();
-                    for(i=0;i<parseInt(numeroGiorniMeseCorrente);i++)
-                    {
-                        if(!results[i]){
-                            let obj={ordini:0,day:i+1};
-                            results.splice(i, 0, obj);
-                        }
-                        else if(i+1!=results[i].day)
-                        {
-                            let obj={ordini:0,day:i+1};
-                            results.splice(i, 0, obj);
-                        }
-                    }
-                    chart = new Chart(ctx,{
-                    type:'bar',
-                    data:{
-                        labels:results.map(row => row.day),
-                        datasets:[
-                        {
-                            lable:'orders in year',
-                            data:results.map(row => row.ordini),
-                        }
-                        ]
-                    }
-                    })
+                    calcDays(numeroGiorniMeseCorrente,results);
+                    creationGraph(results,month,year)
                 }
                 else if(year){
                     for(i=0;i<12;i++)
@@ -197,7 +203,7 @@
                         labels:results.map(row => row.month),
                         datasets:[
                         {
-                            lable:'orders in year',
+                            label:"Ordini del "+year,
                             data:results.map(row => row.ordini),
                         }
                         ]
@@ -205,39 +211,18 @@
                     })
                 }
                 else{
-                     if(month)
+                    if(month)
                         numeroGiorniMeseCorrente = new Date(annoCorrente, month, 0).getDate();
-                     else
-                        numeroGiorniMeseCorrente = new Date(annoCorrente, meseCorrente, 0).getDate(); 
-
-                    for(i=0;i<parseInt(numeroGiorniMeseCorrente);i++)
-                    {
-                        if(!results[i]){
-                            let obj={ordini:0,day:i+1};
-                            results.splice(i, 0, obj);
+                    else{
+                            month=meseCorrente;
+                            numeroGiorniMeseCorrente = new Date(annoCorrente, month, 0).getDate(); 
                         }
-                        else if(i+1!=results[i].day)
-                        {
-                            let obj={ordini:0,day:i+1};
-                            results.splice(i, 0, obj);
-                        }
-                    }
-                    chart = new Chart(ctx,{
-                    type:'bar',
-                    data:{
-                        labels:results.map(row => row.day),
-                        datasets:[
-                        {
-                            lable:'orders in year',
-                            data:results.map(row => row.ordini),
-                        }
-                        ]
-                    }
-                    })
+                    calcDays(numeroGiorniMeseCorrente,results);
+                    creationGraph(results,month,year);
                 }
             }
-          })
-          }
-          getGraph();
+            })
+        }
+        getGraph();
     </script>
 @endsection
