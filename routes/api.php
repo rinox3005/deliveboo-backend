@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiOrderController;
 use App\Http\Controllers\Api\ApiRestaurantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,3 +30,5 @@ Route::get('types', [ApiRestaurantController::class, 'getTypes']);
 
 Route::get('/payment/token', [PaymentController::class, 'generateToken']);
 Route::post('/payment/process', [PaymentController::class, 'processPayment']);
+
+Route::post('orders', [ApiOrderController::class, 'store']);
