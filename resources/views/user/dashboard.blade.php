@@ -116,7 +116,7 @@
             <input type="hidden" id="id" value="{{$restaurants[0]->id}}">
               <canvas id="barChart"></canvas>
           </div>
-          <div class="col">
+          <div class="col-4">
             <h1>Top 5 Piatti del mese</h1>
             <canvas id="doughnutChart" ></canvas>
           </div>
@@ -177,7 +177,7 @@
                     datasets:[{
                         label:res.map(row => row.piatto),
                         data:res.map(row => row.ordini),
-                        // backgroundColor:['rgb(255,0,0)','rgb(0,0,255)','rgb(255,205,86)',],
+                         backgroundColor:['rgb(255,0,0)','rgb(0,0,255)','rgb(255,205,86)','rgb(0,255,0)','rgb(41,0,61)',],
                          hoverOffeset:4
                     }]
                 }
