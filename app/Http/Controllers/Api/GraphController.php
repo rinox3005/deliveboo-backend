@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\DishOrder;
 
 class GraphController extends Controller
 {
     public function index(Request $request)
     {
         if(isset($request->month) && isset($request->year)){
-            $projects=Order::select(Order::raw('COUNT(*) as ordini, DAY(order_date_time) as day'))
+            $result=Order::select(Order::raw('COUNT(*) as ordini, DAY(order_date_time) as day'))
                 ->join('restaurants','orders.restaurant_id','=','restaurants.id')
                 ->whereRaw('YEAR(order_date_time) ='.$request->year)
                 ->whereRaw('MONTH(order_date_time) ='.$request->month)
@@ -21,7 +22,7 @@ class GraphController extends Controller
         }
         else if(isset($request->year))
         {
-            $projects=Order::select(Order::raw('COUNT(*) as ordini, MONTH(order_date_time) as month'))
+            $result=Order::select(Order::raw('COUNT(*) as ordini, MONTH(order_date_time) as month'))
                 ->join('restaurants','orders.restaurant_id','=','restaurants.id')
                 ->whereRaw('YEAR(order_date_time) ='.$request->year)
                 ->where('restaurant_id',$request->id)
@@ -29,7 +30,7 @@ class GraphController extends Controller
                 ->get();
         }
         else if(isset($request->month)){
-            $projects=Order::select(Order::raw('COUNT(*) as ordini, DAY(order_date_time) as day'))
+            $result=Order::select(Order::raw('COUNT(*) as ordini, DAY(order_date_time) as day'))
                 ->join('restaurants','orders.restaurant_id','=','restaurants.id')
                 ->whereRaw('MONTH(order_date_time) ='.$request->month)
                 ->where('restaurant_id',$request->id)
@@ -38,7 +39,7 @@ class GraphController extends Controller
         }
         else{
             $month=date('m');
-            $projects=Order::select(Order::raw('COUNT(*) as ordini, DAY(order_date_time) as day'))
+            $result=Order::select(Order::raw('COUNT(*) as ordini, DAY(order_date_time) as day'))
                 ->join('restaurants','orders.restaurant_id','=','restaurants.id')
                 ->whereRaw('MONTH(order_date_time) ='.$month)
                 ->where('restaurant_id',$request->id)
@@ -48,7 +49,27 @@ class GraphController extends Controller
 
         return response()->json([
             'status' => true,
-            'results' =>$projects
+            'results' =>$result
         ]);
+    }
+
+    public function doughnut(Request $request)
+    {
+        $month=date('m');
+        $result=DishOrder::select(DishOrder::raw('SUM(quantity) as ordini, dishes.name as piatto'))
+            ->join('dishes','dish_order.dish_id','=','dishes.id')
+            ->join('restaurants','dishes.restaurant_id','=','restaurants.id')
+            ->join('orders','dish_order.order_id','=','orders.id')
+            ->whereRaw('MONTH(orders.order_date_time) ='.$month)
+            ->where('dishes.restaurant_id',$request->id)
+            ->groupBy('piatto')
+            ->orderByDesc('ordini')
+            ->limit(5)
+            ->get();
+
+         return response()->json([
+             'status' => true,
+             'results' =>$result
+         ]);
     }
 }

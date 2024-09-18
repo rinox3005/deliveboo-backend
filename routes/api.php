@@ -32,3 +32,5 @@ Route::get('/payment/token', [PaymentController::class, 'generateToken']);
 Route::post('/payment/process', [PaymentController::class, 'processPayment']);
 
 Route::get('/graph', [GraphController::class, 'index']);
+
+Route::get('/graph/doughnut', [GraphController::class, 'doughnut']);

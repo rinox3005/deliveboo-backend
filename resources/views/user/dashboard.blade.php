@@ -97,9 +97,10 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container-graph" style="margin-left: 20%; width:75%">
         <div class="row py-4">
-          <div class="col-10">
+          <div class="col-8">
+            <h1>Numero ordini</h1>
             <select class="form-select w-25" aria-label="Default select example" id="year" onchange="getGraph()">
               <option selected value="">Orders in years</option>
                 @for ($i=date('Y');$i>=$restaurants[0]->created_at->format('Y');$i--)
@@ -115,16 +116,19 @@
             <input type="hidden" id="id" value="{{$restaurants[0]->id}}">
               <canvas id="barChart"></canvas>
           </div>
-          <div class="col-2">
-            
+          <div class="col">
+            <h1>Top 5 Piatti del mese</h1>
+            <canvas id="doughnutChart" ></canvas>
           </div>
         </div>
       </div>
 
     <script>
         let chart;
+        let doughnut;
         const idrest=document.getElementById("id").value;
         const ctx =document.getElementById('barChart');
+        const ctxx =document.getElementById('doughnutChart');
 
         function creationGraph(orders,month,year){
             chart = new Chart(ctx,{
@@ -153,6 +157,35 @@
                     }
                 }
             return results;
+        }
+
+        function getDoughnut(){
+            $.ajax({
+            url:'/api/graph/doughnut',
+            method:'GET',
+            dataType: 'json',
+            data:{
+                id:idrest,
+            },
+            success:function(data){
+                const res = data.results;
+
+                doughnut = new Chart(ctxx,{
+                type:'doughnut',
+                data:{
+                    labels:res.map(row => row.piatto),
+                    datasets:[{
+                        label:res.map(row => row.piatto),
+                        data:res.map(row => row.ordini),
+                        // backgroundColor:['rgb(255,0,0)','rgb(0,0,255)','rgb(255,205,86)',],
+                         hoverOffeset:4
+                    }]
+                }
+                })
+
+                }
+                
+            })
         }
 
         function getGraph(){
@@ -203,7 +236,7 @@
                         labels:results.map(row => row.month),
                         datasets:[
                         {
-                            label:"Ordini del "+year,
+                            label:"Ordini del " + year,
                             data:results.map(row => row.ordini),
                         }
                         ]
@@ -224,5 +257,6 @@
             })
         }
         getGraph();
+        getDoughnut();
     </script>
 @endsection
