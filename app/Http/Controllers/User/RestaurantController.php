@@ -49,7 +49,18 @@ class RestaurantController extends Controller
 
         // Gestione del caricamento dell'immagine
         if ($request->hasFile('image_path')) {
-            $path = $request->file('image_path')->store('restaurants', 'public');
+            $file = $request->file('image_path');
+
+            // Controllo dell'estensione per garantire che sia un'immagine
+            $allowedExtensions = ['jpeg', 'jpg', 'png', 'gif', 'svg'];
+            $extension = $file->getClientOriginalExtension();
+
+            if (!in_array(strtolower($extension), $allowedExtensions)) {
+                return redirect()->back()->withErrors('Il file caricato non è un\'immagine valida.');
+            }
+
+            // Se il file è valido, salviamo l'immagine
+            $path = $file->store('restaurants', 'public');
 
             // Prepara il percorso da salvare nel database nel formato corretto
             $restaurant->image_path = "/storage/{$path}";
@@ -72,6 +83,7 @@ class RestaurantController extends Controller
         // Reindirizza alla pagina dell'indice dei ristoranti
         return redirect()->route('user.dashboard')->with('success', 'Ristorante creato con successo.');
     }
+
 
     /**
      * Display the specified resource.

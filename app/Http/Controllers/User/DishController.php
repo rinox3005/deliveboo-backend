@@ -53,6 +53,16 @@ class DishController extends Controller
         // Gestione del caricamento dell'immagine
         if ($request->hasFile('image_path')) {
             $file = $request->file('image_path');
+
+            // Controllo dell'estensione per garantire che sia un'immagine
+            $allowedExtensions = ['jpeg', 'jpg', 'png', 'gif', 'svg'];
+            $extension = $file->getClientOriginalExtension();
+
+            if (!in_array(strtolower($extension), $allowedExtensions)) {
+                return redirect()->back()->withErrors('Il file caricato non è un\'immagine valida.');
+            }
+
+            // Salva l'immagine
             $fileName = $file->getClientOriginalName();
             $imagePath = $file->storeAs('dishes', $fileName, 'public');
             $data['image_path'] = '/storage/' . $imagePath;
@@ -75,7 +85,6 @@ class DishController extends Controller
         // Reindirizza alla pagina di show del ristorante
         return redirect()->route('user.restaurants.show', $restaurant)->with('message', 'Piatto creato con successo');
     }
-
 
     /**
      * Display the specified resource.
@@ -131,12 +140,23 @@ class DishController extends Controller
 
         // Gestione del caricamento dell'immagine
         if ($request->hasFile('image_path')) {
+            // Elimina la vecchia immagine, se esiste
             if ($dish->image_path) {
                 $oldFilePath = str_replace('storage/', '', $dish->image_path);
                 Storage::disk('public')->delete($oldFilePath);
             }
 
             $file = $request->file('image_path');
+
+            // Controllo dell'estensione per garantire che sia un'immagine
+            $allowedExtensions = ['jpeg', 'jpg', 'png', 'gif', 'svg'];
+            $extension = $file->getClientOriginalExtension();
+
+            if (!in_array(strtolower($extension), $allowedExtensions)) {
+                return redirect()->back()->withErrors('Il file caricato non è un\'immagine valida.');
+            }
+
+            // Salva la nuova immagine
             $fileName = $file->getClientOriginalName();
             $imagePath = $file->storeAs('dishes', $fileName, 'public');
             $data['image_path'] = '/storage/' . $imagePath;
@@ -155,6 +175,7 @@ class DishController extends Controller
 
         return redirect()->route('user.restaurants.show', $restaurant)->with('message', 'Piatto aggiornato con successo');
     }
+
 
     /**
      * Remove the specified resource from storage.
