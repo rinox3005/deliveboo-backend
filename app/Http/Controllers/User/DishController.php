@@ -114,10 +114,6 @@ class DishController extends Controller
      */
     public function update(UpdateDishRequest $request, Dish $dish)
     {
-        // Verifica che il piatto appartenga al ristorante dell'utente loggato
-        if ($dish->restaurant_id !== auth()->user()->restaurant->id) {
-            abort(403);
-        }
 
         $data = $request->validated();
         $data['slug'] = Str::slug($data['name']);
@@ -173,11 +169,6 @@ class DishController extends Controller
      */
     public function destroy(Dish $dish)
     {
-        // Verifica che il piatto appartenga al ristorante dell'utente loggato
-        if ($dish->restaurant_id !== auth()->user()->restaurant->id) {
-            abort(403);
-        }
-
         // Ottieni il ristorante associato al piatto
         $restaurant = $dish->restaurant;
 
