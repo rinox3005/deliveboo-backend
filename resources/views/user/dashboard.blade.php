@@ -72,7 +72,6 @@
                                                         <div class="d-flex justify-content-center">
                                                             <a href="{{ route('user.restaurants.show', $restaurant) }}"
                                                                 class="btn btn-warning btn-sm custom-btn bg-custom-primary">Dettagli</a>
-                                                                class="btn btn-primary">Dettagli</a>
                                                                 <input type="hidden" id="id" value="{{$restaurant->id}}">
                                                         </div>
                                                     </div>
