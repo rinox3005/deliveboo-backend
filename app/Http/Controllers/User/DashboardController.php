@@ -13,11 +13,17 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        // Ottieni l'utente loggato
+        $user = auth()->user();
+
+        // Recupera il ristorante dell'utente loggato
+        $restaurant = $user->restaurant;
+
         // Recupera i ristoranti associati all'utente autenticato
         $restaurants = Auth::user()->restaurant ? [Auth::user()->restaurant] : [];
 
         // Passa i ristoranti alla vista
-        return view('user.dashboard', compact('restaurants'));
+        return view('user.dashboard', compact('restaurants', 'restaurant'));
     }
 
     /**

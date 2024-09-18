@@ -18,19 +18,20 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link link-body-emphasis text-white">
+                        <a href="{{ route('user.restaurants.show', $restaurant) }}"
+                            class="nav-link link-body-emphasis text-white">
                             <i class="fa-solid fa-utensils me-lg-2 me-md-0"></i>
                             <span>Ristorante</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link link-body-emphasis text-white">
+                        <a href="{{ route('user.orders.index') }}" class="nav-link link-body-emphasis text-white">
                             <i class="fa-solid fa-layer-group me-lg-2 me-md-0"></i>
                             <span>Ordini</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link link-body-emphasis text-white">
+                        <a href="{{ route('user.dishes.index') }}" class="nav-link link-body-emphasis text-white">
                             <i class="fa-solid fa-book-open me-lg-2 me-md-0"></i>
                             <span>Menú</span>
                         </a>
@@ -48,7 +49,8 @@
                         <div class="card">
                             @if (!empty($restaurants) && count($restaurants) > 0)
                                 <div class="card-header">
-                                    <h5 class="dashboard-card-header fw-semibold">{{ __('Ristoranti associati a te') }}</h5>
+                                    <h5 class="dashboard-card-header fw-semibold my-1">{{ __('Ristoranti associati a te') }}
+                                    </h5>
                                 </div>
                             @endif
                             <div class="card-body">
@@ -95,38 +97,74 @@
                         </div>
                     </div>
                 </div>
+                @if (!empty($restaurants) && count($restaurants) > 0)
+                    <div class="mx-4 my-4 flex-grow-1">
+                        <div class="col-11 col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="dashboard-card-header fw-semibold my-1">
+                                        {{ __('Statistiche del Ristorante') }}
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="container-graph px-5">
+                                        <div class="row py-2 justify-content-between ">
+                                            <div class="col-6">
+                                                <h2 class="mb-3">Numero ordini</h2>
+                                                <div class="d-flex mb-3">
+                                                    <select class="form-select w-25 fs-20 me-3"
+                                                        aria-label="Default select example" id="year"
+                                                        onchange="getGraph()">
+                                                        <option selected value="">Orders in years</option>
+                                                        @for ($i = date('Y'); $i >= $restaurants[0]->created_at->format('Y'); $i--)
+                                                            <option value="{{ $i }}">{{ $i }}
+                                                            </option>
+                                                        @endfor
+                                                    </select>
+                                                    <select class="form-select w-25 fs-20"
+                                                        aria-label="Default select example" id="month"
+                                                        onchange="getGraph()">
+                                                        <option selected value="">Orders in Month</option>
+                                                        @php
+                                                            $months = [
+                                                                1 => 'Gennaio',
+                                                                2 => 'Febbraio',
+                                                                3 => 'Marzo',
+                                                                4 => 'Aprile',
+                                                                5 => 'Maggio',
+                                                                6 => 'Giugno',
+                                                                7 => 'Luglio',
+                                                                8 => 'Agosto',
+                                                                9 => 'Settembre',
+                                                                10 => 'Ottobre',
+                                                                11 => 'Novembre',
+                                                                12 => 'Dicembre',
+                                                            ];
+                                                        @endphp
+                                                        @foreach ($months as $number => $name)
+                                                            <option value="{{ $number }}">{{ $name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <input type="hidden" id="id" value="{{ $restaurants[0]->id }}">
+                                                <canvas id="barChart"></canvas>
+                                            </div>
+                                            <div class="col-4 pe-5">
+                                                <h2>Top 5 Piatti del mese</h2>
+                                                <canvas id="doughnutChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
-    @if (!empty($restaurants) && count($restaurants) > 0)
-        <div class="container-graph" style="margin-left: 20%; width:75%">
-            <div class="row py-4">
-                <div class="col-8">
-                    <h1>Numero ordini</h1>
-                    <select class="form-select w-25" aria-label="Default select example" id="year"
-                        onchange="getGraph()">
-                        <option selected value="">Orders in years</option>
-                        @for ($i = date('Y'); $i >= $restaurants[0]->created_at->format('Y'); $i--)
-                            <option value="{{ $i }}">{{ $i }}</option>
-                        @endfor
-                    </select>
-                    <select class="form-select w-25" aria-label="Default select example" id="month"
-                        onchange="getGraph()">
-                        <option selected value="">Orders in Month</option>
-                        @for ($i = 1; $i <= 12; $i++)
-                            <option value="{{ $i }}">{{ $i }}</option>
-                        @endfor
-                    </select>
-                    <input type="hidden" id="id" value="{{ $restaurants[0]->id }}">
-                    <canvas id="barChart"></canvas>
-                </div>
-                <div class="col-4">
-                    <h1>Top 5 Piatti del mese</h1>
-                    <canvas id="doughnutChart"></canvas>
-                </div>
-            </div>
-        </div>
-    @endif
+
     <script>
         let chart;
         let doughnut;
@@ -135,16 +173,24 @@
         const ctxx = document.getElementById('doughnutChart');
 
         function creationGraph(orders, month, year) {
+            const monthNames = [
+                "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
+                "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
+            ];
+
+            // Converti il numero del mese in nome del mese
+            const monthName = monthNames[month - 1];
+
             chart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: orders.map(row => row.day),
                     datasets: [{
-                        label: "Ordini nel mese " + month + " " + year,
+                        label: "Ordini nel mese di " + monthName + " " + year,
                         data: orders.map(row => row.ordini),
                     }]
                 }
-            })
+            });
         }
 
         function calcDays(nGiorni, results) {
