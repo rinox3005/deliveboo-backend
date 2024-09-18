@@ -125,11 +125,22 @@ class RestaurantController extends Controller
             abort(403);
         }
 
+        // Validazione dei dati e creazione dello slug
         $data = $request->validated();
         $data['slug'] = Str::slug($data['name']);
 
         // Gestione del caricamento dell'immagine
         if ($request->hasFile('preview')) {
+            $file = $request->file('preview');
+
+            // Controllo dell'estensione per garantire che sia un'immagine
+            $allowedExtensions = ['jpeg', 'jpg', 'png', 'gif', 'svg'];
+            $extension = $file->getClientOriginalExtension();
+
+            if (!in_array(strtolower($extension), $allowedExtensions)) {
+                return redirect()->back()->withErrors('Il file caricato non è un\'immagine valida.');
+            }
+
             // Elimina la vecchia immagine, se esiste
             if ($restaurant->image_path) {
                 $oldFilePath = str_replace('storage/', '', $restaurant->image_path);
@@ -137,7 +148,6 @@ class RestaurantController extends Controller
             }
 
             // Salva la nuova immagine
-            $file = $request->file('preview');
             $fileName = $file->getClientOriginalName();
             $imagePath = $file->storeAs('restaurants', $fileName, 'public');
             $data['image_path'] = '/storage/' . $imagePath;
@@ -155,8 +165,11 @@ class RestaurantController extends Controller
             $restaurant->types()->detach();
         }
 
-        return redirect()->route('user.restaurants.show', $restaurant)->with('message', 'Ristorante ' . $restaurant->name . ' aggiornato con successo');
+        // Redireziona alla pagina del ristorante con un messaggio di successo
+        return redirect()->route('user.restaurants.show', $restaurant)
+            ->with('message', 'Ristorante ' . $restaurant->name . ' aggiornato con successo');
     }
+
 
 
     /**

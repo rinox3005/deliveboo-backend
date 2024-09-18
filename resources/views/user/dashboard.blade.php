@@ -46,12 +46,11 @@
                         ordini</p>
                     <div class="col-11 col-md-12">
                         <div class="card">
-                            <div class="card-header">
-                                @if (!empty($restaurants) && count($restaurants) > 0)
+                            @if (!empty($restaurants) && count($restaurants) > 0)
+                                <div class="card-header">
                                     <h5 class="dashboard-card-header fw-semibold">{{ __('Ristoranti associati a te') }}</h5>
-                                @endif
-                            </div>
-
+                                </div>
+                            @endif
                             <div class="card-body">
                                 @if (session('status'))
                                     <div class="alert alert-success" role="alert">
@@ -60,7 +59,7 @@
                                 @endif
 
                                 <div class="row">
-                                    @if (!empty($restaurants) && count($restaurants) > 0)                                   
+                                    @if (!empty($restaurants) && count($restaurants) > 0)
                                         @foreach ($restaurants as $restaurant)
                                             <div class="col-lg-3 col-md-4">
                                                 <div class="card mb-4">
@@ -72,7 +71,8 @@
                                                         <div class="d-flex justify-content-center">
                                                             <a href="{{ route('user.restaurants.show', $restaurant) }}"
                                                                 class="btn btn-warning btn-sm custom-btn bg-custom-primary">Dettagli</a>
-                                                                <input type="hidden" id="id" value="{{$restaurant->id}}">
+                                                            <input type="hidden" id="id"
+                                                                value="{{ $restaurant->id }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -98,163 +98,171 @@
             </div>
         </div>
     </div>
-    <div class="container-graph" style="margin-left: 20%; width:75%">
-        <div class="row py-4">
-          <div class="col-8">
-            <h1>Numero ordini</h1>
-            <select class="form-select w-25" aria-label="Default select example" id="year" onchange="getGraph()">
-              <option selected value="">Orders in years</option>
-                @for ($i=date('Y');$i>=$restaurants[0]->created_at->format('Y');$i--)
-                  <option value="{{$i}}">{{$i}}</option>
-                @endfor
-            </select>
-            <select class="form-select w-25" aria-label="Default select example" id="month" onchange="getGraph()">
-                <option selected value="">Orders in Month</option>
-                  @for ($i=1;$i<=12;$i++)
-                    <option value="{{$i}}">{{$i}}</option>
-                  @endfor
-              </select>
-            <input type="hidden" id="id" value="{{$restaurants[0]->id}}">
-              <canvas id="barChart"></canvas>
-          </div>
-          <div class="col-4">
-            <h1>Top 5 Piatti del mese</h1>
-            <canvas id="doughnutChart" ></canvas>
-          </div>
+    @if (!empty($restaurants) && count($restaurants) > 0)
+        <div class="container-graph" style="margin-left: 20%; width:75%">
+            <div class="row py-4">
+                <div class="col-8">
+                    <h1>Numero ordini</h1>
+                    <select class="form-select w-25" aria-label="Default select example" id="year"
+                        onchange="getGraph()">
+                        <option selected value="">Orders in years</option>
+                        @for ($i = date('Y'); $i >= $restaurants[0]->created_at->format('Y'); $i--)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
+                    </select>
+                    <select class="form-select w-25" aria-label="Default select example" id="month"
+                        onchange="getGraph()">
+                        <option selected value="">Orders in Month</option>
+                        @for ($i = 1; $i <= 12; $i++)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
+                    </select>
+                    <input type="hidden" id="id" value="{{ $restaurants[0]->id }}">
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div class="col-4">
+                    <h1>Top 5 Piatti del mese</h1>
+                    <canvas id="doughnutChart"></canvas>
+                </div>
+            </div>
         </div>
-      </div>
-
+    @endif
     <script>
         let chart;
         let doughnut;
-        const idrest=document.getElementById("id").value;
-        const ctx =document.getElementById('barChart');
-        const ctxx =document.getElementById('doughnutChart');
+        const idrest = document.getElementById("id").value;
+        const ctx = document.getElementById('barChart');
+        const ctxx = document.getElementById('doughnutChart');
 
-        function creationGraph(orders,month,year){
-            chart = new Chart(ctx,{
-                type:'bar',
-                data:{
-                    labels:orders.map(row => row.day),
-                    datasets:[{
-                        label:"Ordini nel mese "+ month + " " + year,
-                        data:orders.map(row => row.ordini),
+        function creationGraph(orders, month, year) {
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: orders.map(row => row.day),
+                    datasets: [{
+                        label: "Ordini nel mese " + month + " " + year,
+                        data: orders.map(row => row.ordini),
                     }]
                 }
             })
         }
 
-        function calcDays(nGiorni,results){
-            for(i=0;i<parseInt(nGiorni);i++)
-                {
-                    if(!results[i]){
-                        let obj={ordini:0,day:i+1};
-                        results.splice(i, 0, obj);
-                    }
-                    else if(i+1!=results[i].day)
-                    {
-                        let obj={ordini:0,day:i+1};
-                        results.splice(i, 0, obj);
-                    }
+        function calcDays(nGiorni, results) {
+            for (i = 0; i < parseInt(nGiorni); i++) {
+                if (!results[i]) {
+                    let obj = {
+                        ordini: 0,
+                        day: i + 1
+                    };
+                    results.splice(i, 0, obj);
+                } else if (i + 1 != results[i].day) {
+                    let obj = {
+                        ordini: 0,
+                        day: i + 1
+                    };
+                    results.splice(i, 0, obj);
                 }
+            }
             return results;
         }
 
-        function getDoughnut(){
+        function getDoughnut() {
             $.ajax({
-            url:'/api/graph/doughnut',
-            method:'GET',
-            dataType: 'json',
-            data:{
-                id:idrest,
-            },
-            success:function(data){
-                const res = data.results;
+                url: '/api/graph/doughnut',
+                method: 'GET',
+                dataType: 'json',
+                data: {
+                    id: idrest,
+                },
+                success: function(data) {
+                    const res = data.results;
 
-                doughnut = new Chart(ctxx,{
-                type:'doughnut',
-                data:{
-                    labels:res.map(row => row.piatto),
-                    datasets:[{
-                        label:res.map(row => row.piatto),
-                        data:res.map(row => row.ordini),
-                         backgroundColor:['rgb(255,0,0)','rgb(0,0,255)','rgb(255,205,86)','rgb(0,255,0)','rgb(41,0,61)',],
-                         hoverOffeset:4
-                    }]
-                }
-                })
+                    doughnut = new Chart(ctxx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: res.map(row => row.piatto),
+                            datasets: [{
+                                label: res.map(row => row.piatto),
+                                data: res.map(row => row.ordini),
+                                backgroundColor: ['rgb(255,0,0)', 'rgb(0,0,255)',
+                                    'rgb(255,205,86)', 'rgb(0,255,0)', 'rgb(41,0,61)',
+                                ],
+                                hoverOffeset: 4
+                            }]
+                        }
+                    })
 
                 }
-                
+
             })
         }
 
-        function getGraph(){
-            let year=document.getElementById("year").value;
-            let month=document.getElementById("month").value;
+        function getGraph() {
+            let year = document.getElementById("year").value;
+            let month = document.getElementById("month").value;
             let today = new Date();
             let meseCorrente = today.getMonth() + 1;
             let annoCorrente = today.getFullYear(); // Ottenere l'anno corrente
             let numeroGiorniMeseCorrente;
 
             $.ajax({
-            url:'/api/graph',
-            method:'GET',
-            dataType: 'json',
-            data:{
-                id:idrest,
-                year:year,
-                month:month
-            },
-            success:function(data){
-                const results = data.results;
+                url: '/api/graph',
+                method: 'GET',
+                dataType: 'json',
+                data: {
+                    id: idrest,
+                    year: year,
+                    month: month
+                },
+                success: function(data) {
+                    const results = data.results;
 
-                if(chart){
-                    chart.destroy();
-                }
-                
+                    if (chart) {
+                        chart.destroy();
+                    }
 
-                if(year && month){
-                    numeroGiorniMeseCorrente = new Date(year, month, 0).getDate();
-                    calcDays(numeroGiorniMeseCorrente,results);
-                    creationGraph(results,month,year)
-                }
-                else if(year){
-                    for(i=0;i<12;i++)
-                    {
-                        if(!results[i]){
-                            let obj={ordini:0,month:i+1};
-                            results.splice(i, 0, obj);
+
+                    if (year && month) {
+                        numeroGiorniMeseCorrente = new Date(year, month, 0).getDate();
+                        calcDays(numeroGiorniMeseCorrente, results);
+                        creationGraph(results, month, year)
+                    } else if (year) {
+                        for (i = 0; i < 12; i++) {
+                            if (!results[i]) {
+                                let obj = {
+                                    ordini: 0,
+                                    month: i + 1
+                                };
+                                results.splice(i, 0, obj);
+                            } else if (i + 1 != results[i].month) {
+                                let obj = {
+                                    ordini: 0,
+                                    month: i + 1
+                                };
+                                results.splice(i, 0, obj);
+                            }
                         }
-                        else if(i+1!=results[i].month){
-                            let obj={ordini:0,month:i+1};
-                            results.splice(i, 0, obj);
+                        chart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: results.map(row => row.month),
+                                datasets: [{
+                                    label: "Ordini del " + year,
+                                    data: results.map(row => row.ordini),
+                                }]
+                            }
+                        })
+                    } else {
+                        if (month)
+                            numeroGiorniMeseCorrente = new Date(annoCorrente, month, 0).getDate();
+                        else {
+                            month = meseCorrente;
+                            numeroGiorniMeseCorrente = new Date(annoCorrente, month, 0).getDate();
                         }
+                        calcDays(numeroGiorniMeseCorrente, results);
+                        creationGraph(results, month, year);
                     }
-                    chart = new Chart(ctx,{
-                    type:'bar',
-                    data:{
-                        labels:results.map(row => row.month),
-                        datasets:[
-                        {
-                            label:"Ordini del " + year,
-                            data:results.map(row => row.ordini),
-                        }
-                        ]
-                    }
-                    })
                 }
-                else{
-                    if(month)
-                        numeroGiorniMeseCorrente = new Date(annoCorrente, month, 0).getDate();
-                    else{
-                            month=meseCorrente;
-                            numeroGiorniMeseCorrente = new Date(annoCorrente, month, 0).getDate(); 
-                        }
-                    calcDays(numeroGiorniMeseCorrente,results);
-                    creationGraph(results,month,year);
-                }
-            }
             })
         }
         getGraph();
