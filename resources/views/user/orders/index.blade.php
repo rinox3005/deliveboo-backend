@@ -34,6 +34,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="d-flex justify-content-center">
+            {{ $orders->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}
+        </div>
         <div class="d-flex justify-content-end">
             <a href="{{ route('user.restaurants.show', $restaurant) }}" class="btn btn-warning me-2 bg-custom-primary">
                 <i class="fas fa-arrow-left"></i>

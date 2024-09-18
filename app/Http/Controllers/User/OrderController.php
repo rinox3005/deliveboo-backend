@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -19,12 +20,14 @@ class OrderController extends Controller
         // Recupera il ristorante dell'utente loggato
         $restaurant = $user->restaurant;
 
-        // Recupera tutti gli ordini associati al ristorante
-        $orders = $restaurant->orders()->get();
+        // Recupera gli ordini associati al ristorante, ordinati per order_date_time decrescente e paginati
+        $orders = $restaurant->orders()->orderBy('order_date_time', 'desc')->paginate(10);
 
         // Passa sia gli ordini che il ristorante alla vista
         return view('user.orders.index', compact('orders', 'restaurant'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
