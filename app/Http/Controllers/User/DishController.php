@@ -17,9 +17,15 @@ class DishController extends Controller
      */
     public function index()
     {
+        // Ottieni l'utente loggato
+        $user = auth()->user();
+
+        // Recupera il ristorante dell'utente loggato
+        $restaurant = $user->restaurant;
+
         // Mostra tutti i piatti associati al ristorante dell'utente loggato
-        $dishes = Dish::where('restaurant_id', auth()->user()->restaurant->id)->get();
-        return view('user.dishes.index', compact('dishes'));
+        $dishes = Dish::where('restaurant_id', auth()->user()->restaurant->id)->paginate(10);
+        return view('user.dishes.index', compact('dishes', 'restaurant'));
     }
 
     /**

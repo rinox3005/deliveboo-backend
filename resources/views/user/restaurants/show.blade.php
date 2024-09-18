@@ -1,143 +1,156 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mb-5">
-        <h1 class="my-3 text-center">Dettagli {{ $restaurant->name }}</h1>
+    <div class="container mb-2">
+        {{-- <h1 class="mt-4 mb-3 text-center display-5">Dettagli {{ $restaurant->name }}</h1> --}}
 
         @if (session('message'))
             <div class="alert alert-success">
                 {{ session('message') }}
             </div>
         @endif
+        <div class="row pb-3">
+            <div class="col-6">
+                <div class="card mt-3 shadow-sm h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 class="mb-0">Info Ristorante</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-12 mb-3"><strong>Nome:</strong> {{ $restaurant->name }}</div>
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <strong>Categorie:</strong>
+                                        @if ($restaurant->types->isNotEmpty())
+                                            @foreach ($restaurant->types as $type)
+                                                <span class="badge bg-custom-primary text-white">
+                                                    {{ $type->name }}
+                                                </span>
+                                            @endforeach
+                                        @else
+                                            <span>Non Disponibili</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <p class="mb-2">
+                                            <strong>Indirizzo:</strong>
+                                            {{ $restaurant->address }}
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="mb-2">
+                                            <strong>Creato il:</strong>
+                                            {{ $restaurant->created_at->format('d M Y, H:i') }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <p class="mb-2">
+                                            <strong>Cittá:</strong>
+                                            {{ $restaurant->city }}
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="mb-2">
+                                            <strong>Contatto:</strong>
+                                            {{ $restaurant->phone_number }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <p class="mb-2">
+                                            <strong>Partita IVA:</strong>
+                                            {{ $restaurant->piva }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
 
-        <div class="card mt-3 shadow-sm">
-            <div class="card-header bg-warning d-flex justify-content-between align-items-center text-white">
-                <h2 class="mb-0">Ristorante</h2>
+                            <div class="col-md-3 text-center">
+                                <img src="{{ $restaurant->image_path ? asset($restaurant->image_path) : Vite::asset('resources/img/restaurant-placeholder-show.png') }}"
+                                    alt="{{ $restaurant->name }} Image" class="img-thumbnail preview-show" />
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ route('user.restaurants.edit', $restaurant) }}"
+                                class="btn btn-warning btn-sm custom-btn me-2 d-flex align-items-center text-dark fs-6">
+                                <i class="fas fa-edit me-1"></i>
+                                Modifica
+                            </a>
+                            <button class="btn btn-danger btn-sm custom-btn me-2 d-flex align-items-center fs-6"
+                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                data-bs-restaurant-id="{{ $restaurant->id }}"
+                                data-bs-restaurant-name="{{ $restaurant->name }}">
+                                <i class="fas fa-trash me-1"></i>
+                                Cancella
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-9">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <strong>Categorie:</strong>
-                                @if ($restaurant->types->isNotEmpty())
-                                    @foreach ($restaurant->types as $type)
-                                        <span class="badge bg-success text-white">
-                                            {{ $type->name }}
-                                        </span>
+
+
+
+            <!-- Lista ultimi 2 ordini -->
+            <div class="col-6">
+                <div class="card shadow-sm mt-3 h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 class="mb-0">Ultimi Ordini</h2>
+                    </div>
+                    <div class="card-body">
+                        @if ($recentOrders->isNotEmpty())
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>N. Ordine</th>
+                                        <th>Cliente</th>
+                                        <th>Indirizzo</th>
+                                        <th>Totale</th>
+                                        <th>Azioni</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="fs-20">
+                                    @foreach ($recentOrders as $recentOrder)
+                                        <tr class="align-middle">
+                                            <td>
+                                                Ordine #{{ $recentOrder->id }}
+                                            </td>
+                                            <td>{{ $recentOrder->user_name }}</td>
+                                            <td>{{ $recentOrder->user_address }}</td>
+                                            <td>{{ $recentOrder->total_price }} €</td>
+                                            <td>
+                                                <a href="{{ route('user.orders.show', $recentOrder) }}"
+                                                    class="btn btn-info btn-sm me-1 my-1"><i class="fas fa-eye"></i></a>
+                                            </td>
+                                        </tr>
                                     @endforeach
-                                @else
-                                    <span>Non Disponibili</span>
-                                @endif
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('user.orders.index') }}"
+                                    class="py-1 px-2 bg-custom-secondary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white"><i
+                                        class="fas fa-list-check me-2"></i>Vai alla lista completa degli
+                                    ordini</a>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <p class="mb-2">
-                                    <strong>Indirizzo:</strong>
-                                    {{ $restaurant->address }}
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <p class="mb-2">
-                                    <strong>Creato il:</strong>
-                                    {{ $restaurant->created_at->format('d M Y, H:i') }}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <p class="mb-2">
-                                    <strong>Cittá:</strong>
-                                    {{ $restaurant->city }}
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <p class="mb-2">
-                                    <strong>Contatto:</strong>
-                                    {{ $restaurant->phone_number }}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <p class="mb-2">
-                                    <strong>Partita IVA:</strong>
-                                    {{ $restaurant->piva }}
-                                </p>
-                            </div>
-                        </div>
+                        @else
+                            <p>Non hai ancora ricevuto nessun ordine oggi.</p>
+                            <a href="{{ route('user.orders.index') }}" class="btn btn-primary"><i
+                                    class="fas fa-list-check me-2"></i>Vai alla lista completa degli
+                                ordini</a>
+                        @endif
                     </div>
-
-                    <div class="col-md-3 text-center">
-                        <img src="{{ $restaurant->image_path ? asset($restaurant->image_path) : Vite::asset('resources/img/restaurant-placeholder-show.png') }}"
-                            alt="{{ $restaurant->name }} Image" class="img-thumbnail preview-show" />
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <a href="{{ route('user.restaurants.edit', $restaurant) }}" class="btn btn-warning me-2">
-                        <i class="fas fa-edit"></i>
-                        Modifica
-                    </a>
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                        data-bs-restaurant-id="{{ $restaurant->id }}" data-bs-restaurant-name="{{ $restaurant->name }}">
-                        <i class="fas fa-trash"></i>
-                        Cancella
-                    </button>
                 </div>
             </div>
         </div>
-
-
-        <!-- Lista ultimi 10 ordini -->
-        <div class="card mt-4">
-            <div class="card-header bg-info d-flex justify-content-between align-items-center text-white">
-                <h2 class="mb-0">Ultimi Ordini</h2>
-            </div>
-            <div class="card-body">
-                @if ($recentOrders->isNotEmpty())
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>N. Ordine</th>
-                                <th>Cliente</th>
-                                <th>Indirizzo</th>
-                                <th>Totale</th>
-                                <th>Azioni</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($recentOrders as $recentOrder)
-                                <tr class="align-middle">
-                                    <td>
-                                        Ordine #{{ $recentOrder->id }}
-                                    </td>
-                                    <td>{{ $recentOrder->user_name }}</td>
-                                    <td>{{ $recentOrder->user_address }}</td>
-                                    <td>{{ $recentOrder->total_price }} €</td>
-                                    <td>
-                                        <a href="{{ route('user.orders.show', $recentOrder) }}"
-                                            class="btn btn-info btn-sm me-1 my-1"><i
-                                                class="fas fa-eye me-1"></i>Dettagli</a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @else
-                    <p>Non hai ancora ricevuto nessun ordine oggi.</p>
-                    <a href="{{ route('user.orders.index') }}" class="btn btn-primary"><i
-                            class="fas fa-list-check me-2"></i>Vai alla lista completa degli
-                        ordini</a>
-                @endif
-            </div>
-        </div>
-
-
         <!-- Lista dei piatti associati -->
         <div class="card mt-4">
-            <div class="card-header bg-success text-white">
-                <h2 class="mb-0">Menú</h2>
+            <div class="card-header">
+                <h2 class="mb-0">Ultimi Piatti</h2>
             </div>
             <div class="card-body">
                 @if ($dishes->isNotEmpty())
@@ -165,15 +178,15 @@
                                     <td>{{ $dish->price }} €</td>
                                     <td>
                                         <a href="{{ route('user.dishes.show', $dish) }}"
-                                            class="btn btn-info btn-sm me-1 my-1"><i
+                                            class="btn btn-info btn-sm custom-btn me-2  text-dark fs-6"><i
                                                 class="fas fa-eye me-1"></i>Dettagli</a>
                                         <a href="{{ route('user.dishes.edit', $dish) }}"
-                                            class="btn btn-warning btn-sm me-1 my-1"><i
+                                            class="btn btn-warning btn-sm custom-btn me-2 text-dark fs-6"><i
                                                 class="fas fa-edit me-1"></i>Modifica</a>
 
-                                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModalDish" data-bs-dish-id="{{ $dish->id }}"
-                                            data-bs-dish-name="{{ $dish->name }}">
+                                        <button class="btn btn-danger btn-sm custom-btn me-2 text-white fs-6"
+                                            data-bs-toggle="modal" data-bs-target="#deleteModalDish{{ $dish->id }}"
+                                            data-bs-dish-id="{{ $dish->id }}" data-bs-dish-name="{{ $dish->name }}">
                                             <i class="fas fa-trash me-1"></i>Cancella
                                         </button>
 
@@ -186,16 +199,23 @@
                     <p>Non ci sono piatti associati a questo ristorante.</p>
                 @endif
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('user.dishes.create') }}" class="btn btn-success me-2">
-                        <i class="fas fa-plus"></i>
+                    <a href="{{ route('user.dishes.create') }}"
+                        class="py-1 px-2 bg-custom-secondary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
+                        <i class="fas fa-plus me-1"></i>
                         Aggiungi Nuovo Piatto
+                    </a>
+                    <a href="{{ route('user.dishes.index') }}"
+                        class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
+                        <i class="fas fa-book-open me-1"></i>
+                        Menú Completo
                     </a>
                 </div>
             </div>
         </div>
         <div class="d-flex justify-content-end mt-3">
-            <a href="{{ route('user.dashboard') }}" class="btn btn-primary me-2">
-                <i class="fas fa-arrow-left"></i>
+            <a href="{{ route('user.dashboard') }}"
+                class="py-1 px-2 bg-custom-secondary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
+                <i class="fas fa-arrow-left me-1"></i>
                 Torna alla Dashboard
             </a>
         </div>
@@ -233,31 +253,33 @@
 
     <!-- Modal for delete confirmation for dish -->
     @if ($dishes->isNotEmpty())
-        <div class="modal fade" id="deleteModalDish" tabindex="-1" aria-labelledby="deleteModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h5 class="fw-semibold">Delete Confirmation:</h5>
-                        <p>
-                            Sei sicuro di voler eliminare
-                            <span class="fw-semibold">{{ $dish->name }}</span>?
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                        <form action="{{ route('user.dishes.destroy', $dish) }}" method="POST"
-                            style="display: inline-block">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">
-                                <i class="fas fa-trash"></i>
-                                Cancella Piatto
-                            </button>
-                        </form>
+        @foreach ($dishes as $dish)
+            <div class="modal fade" id="deleteModalDish{{ $dish->id }}" tabindex="-1"
+                aria-labelledby="deleteModalLabel{{ $dish->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h5 class="fw-semibold">Delete Confirmation:</h5>
+                            <p>
+                                Sei sicuro di voler eliminare
+                                <span class="fw-semibold">{{ $dish->name }}</span>?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                            <form action="{{ route('user.dishes.destroy', $dish) }}" method="POST"
+                                style="display: inline-block">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                    Cancella Piatto
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endforeach
     @endif
 @endsection

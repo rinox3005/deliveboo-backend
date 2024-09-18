@@ -91,7 +91,7 @@ class RestaurantController extends Controller
     public function show(Restaurant $restaurant)
     {
         // Carica i piatti associati al ristorante
-        $dishes = $restaurant->dishes;
+        $dishes = $restaurant->dishes()->take(3)->get();
 
         // Ottieni la data odierna con Carbon
         $today = Carbon::today();
@@ -100,7 +100,7 @@ class RestaurantController extends Controller
         $recentOrders = $restaurant->orders()
             ->whereDate('order_date_time', $today) // Filtra solo gli ordini di oggi
             ->latest('order_date_time') // Ordina per data di ordine decrescente
-            ->take(10) // Prendi solo i 10 più recenti
+            ->take(3) // Prendi solo i 3 più recenti
             ->get();
 
         return view('user.restaurants.show', compact('restaurant', 'dishes', 'recentOrders'));
