@@ -91,10 +91,6 @@ class DishController extends Controller
      */
     public function show(Dish $dish)
     {
-        // Verifica che il piatto appartenga al ristorante dell'utente loggato
-        if ($dish->restaurant->user_id !== auth()->id()) {
-            abort(403);
-        }
 
         // Ottieni il ristorante associato al piatto
         $restaurant = $dish->restaurant;
@@ -107,11 +103,6 @@ class DishController extends Controller
      */
     public function edit(Dish $dish)
     {
-        // Verifica che il piatto appartenga al ristorante dell'utente loggato
-        if ($dish->restaurant_id !== auth()->user()->restaurant->id) {
-            abort(403);
-        }
-
         // Ottieni il ristorante associato all'utente loggato
         $restaurant = auth()->user()->restaurant;
 

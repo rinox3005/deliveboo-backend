@@ -90,11 +90,6 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
-        // Verifica che il ristorante appartenga all'utente loggato
-        if ($restaurant->user_id !== auth()->id()) {
-            abort(403);
-        }
-
         // Carica i piatti associati al ristorante
         $dishes = $restaurant->dishes;
 
@@ -116,11 +111,6 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-        // Verifica che il ristorante appartenga all'utente loggato
-        if ($restaurant->user_id !== auth()->id()) {
-            abort(403);
-        }
-
         // Recupera i tipi di ristorante disponibili
         $types = Type::all();
 
@@ -132,11 +122,6 @@ class RestaurantController extends Controller
      */
     public function update(UpdateRestaurantRequest $request, Restaurant $restaurant)
     {
-        // Verifica che il ristorante appartenga all'utente loggato
-        if ($restaurant->user_id !== auth()->id()) {
-            abort(403);
-        }
-
         // Validazione dei dati e creazione dello slug
         $data = $request->validated();
         $data['slug'] = Str::slug($data['name']);
