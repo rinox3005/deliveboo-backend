@@ -32,10 +32,7 @@ Route::get('types', [ApiRestaurantController::class, 'getTypes']);
 Route::get('/payment/token', [PaymentController::class, 'generateToken']);
 Route::post('/payment/process', [PaymentController::class, 'processPayment']);
 
-<<<<<<< HEAD
 Route::post('orders', [ApiOrderController::class, 'store']);
-=======
 Route::get('/graph', [GraphController::class, 'index']);
 
 Route::get('/graph/doughnut', [GraphController::class, 'doughnut']);
->>>>>>> feat-graph
