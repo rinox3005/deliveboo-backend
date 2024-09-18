@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Restaurant;
 use App\Models\Type;
-use App\Models\RestaurantType; // Modello per la tabella pivot (opzionale)
+use App\Models\RestaurantType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
@@ -22,18 +22,22 @@ class RestaurantTypeTableSeeder extends Seeder
         // Svuoto la tabella prima di inserire nuovi record
         RestaurantType::truncate();
 
-        // Esegui un ciclo per creare 10 associazioni casuali tra ristoranti e tipi di cucina
-        for ($i = 0; $i < 10; $i++) {
-            $new_restaurant_type = new RestaurantType();
+        // Recupera tutti i ristoranti
+        $restaurants = Restaurant::all();
 
-            // Associa un ristorante casuale
-            $new_restaurant_type->restaurant_id = Restaurant::inRandomOrder()->first()->id;
+        // Assicura che ogni ristorante abbia almeno un tipo associato
+        foreach ($restaurants as $restaurant) {
+            // Seleziona un numero casuale di tipi (almeno 1) da associare a ogni ristorante
+            $numberOfTypes = rand(1, 3);
+            $types = Type::inRandomOrder()->take($numberOfTypes)->pluck('id');
 
-            // Associa un tipo di cucina casuale
-            $new_restaurant_type->type_id = Type::inRandomOrder()->first()->id;
-
-            // Salva l'associazione nella tabella pivot
-            $new_restaurant_type->save();
+            // Associa i tipi al ristorante
+            foreach ($types as $typeId) {
+                RestaurantType::create([
+                    'restaurant_id' => $restaurant->id,
+                    'type_id' => $typeId,
+                ]);
+            }
         }
 
         // Riabilito i vincoli delle chiavi esterne
