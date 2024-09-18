@@ -18,20 +18,22 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user.restaurants.show', $restaurant) }}"
+                        <a href="@if ($restaurants) {{ route('user.restaurants.show', $restaurant) }} @endif"
                             class="nav-link link-body-emphasis text-white">
                             <i class="fa-solid fa-utensils me-lg-2 me-md-0"></i>
                             <span>Ristorante</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user.orders.index') }}" class="nav-link link-body-emphasis text-white">
+                        <a href="@if ($restaurants) {{ route('user.orders.index') }} @endif"
+                            class="nav-link link-body-emphasis text-white">
                             <i class="fa-solid fa-layer-group me-lg-2 me-md-0"></i>
                             <span>Ordini</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user.dishes.index') }}" class="nav-link link-body-emphasis text-white">
+                        <a href="@if ($restaurants) {{ route('user.dishes.index') }} @endif"
+                            class="nav-link link-body-emphasis text-white">
                             <i class="fa-solid fa-book-open me-lg-2 me-md-0"></i>
                             <span>Menú</span>
                         </a>
@@ -43,9 +45,18 @@
             <div class="container-fluid custom-ml overflow-auto">
                 <div class="mx-4 my-4 flex-grow-1">
                     <h5 class="pb-3 mb-0 fw-semibold">Ben tornato {{ Auth::user()->name }} !</h5>
-                    <p class="py-3">Di seguito puoi visualizzare i tuoi ristoranti e le statistiche relative a vendite e
+                    <p class="py-3">Di seguito puoi visualizzare le statistiche relative a vendite e
                         ordini</p>
-                    <div class="col-11 col-md-12">
+                    <div class="d-inline">
+                        @if (Auth::user()->restaurant === null)
+                            <a href="{{ route('user.restaurants.create') }}" class="btn btn-success">
+                                <i class="fas fa-plus"></i>
+                                Aggiungi Nuovo Ristorante
+                            </a>
+                        @endif
+                    </div>
+                    {{-- i tuoi ristoranti e  --}}
+                    <div class="col-11 col-md-12 d-none">
                         <div class="card">
                             @if (!empty($restaurants) && count($restaurants) > 0)
                                 <div class="card-header">
@@ -83,15 +94,6 @@
                                     @else
                                         <p>Non hai ristoranti associati.</p>
                                     @endif
-
-                                    <div class="d-inline">
-                                        @if (Auth::user()->restaurant === null)
-                                            <a href="{{ route('user.restaurants.create') }}" class="btn btn-success">
-                                                <i class="fas fa-plus"></i>
-                                                Aggiungi Nuovo Ristorante
-                                            </a>
-                                        @endif
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -112,19 +114,19 @@
                                             <div class="col-6">
                                                 <h2 class="mb-3">Numero ordini</h2>
                                                 <div class="d-flex mb-3">
-                                                    <select class="form-select w-25 fs-20 me-3"
+                                                    <select class="form-select w-50 fs-20 me-3"
                                                         aria-label="Default select example" id="year"
                                                         onchange="getGraph()">
-                                                        <option selected value="">Orders in years</option>
+                                                        <option selected value="">Years</option>
                                                         @for ($i = date('Y'); $i >= $restaurants[0]->created_at->format('Y'); $i--)
                                                             <option value="{{ $i }}">{{ $i }}
                                                             </option>
                                                         @endfor
                                                     </select>
-                                                    <select class="form-select w-25 fs-20"
+                                                    <select class="form-select w-50 fs-20"
                                                         aria-label="Default select example" id="month"
                                                         onchange="getGraph()">
-                                                        <option selected value="">Orders in Month</option>
+                                                        <option selected value="">Months</option>
                                                         @php
                                                             $months = [
                                                                 1 => 'Gennaio',

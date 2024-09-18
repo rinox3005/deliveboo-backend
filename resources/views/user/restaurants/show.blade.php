@@ -5,7 +5,7 @@
         {{-- <h1 class="mt-4 mb-3 text-center display-5">Dettagli {{ $restaurant->name }}</h1> --}}
 
         @if (session('message'))
-            <div class="alert alert-success">
+            <div class="alert alert-success mt-4">
                 {{ session('message') }}
             </div>
         @endif
