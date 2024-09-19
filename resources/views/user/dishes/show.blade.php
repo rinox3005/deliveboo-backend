@@ -11,7 +11,7 @@
         @endif
 
         <div class="card mt-4 shadow-sm">
-            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <div class="card-header text-dark d-flex justify-content-between align-items-center">
                 <h2 class="mb-0">{{ $dish->name }}</h2>
                 <span
                     class="badge @if ($dish->visible == '1') bg-success @elseif ($dish->visible == '0') bg-danger @endif">

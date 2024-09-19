@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="card my-3">
-            <div class="card-header bg-warning text-white">
+            <div class="card-header text-dark">
                 <h2 class="mb-0">Modifica Piatto</h2>
             </div>
             <div class="card-body">
@@ -47,39 +47,40 @@
                         @endif
                     </div>
 
-                    <!-- Checkbox personalizzate per opzioni -->
-                    <div class="mb-3">
-                        <div class="mb-2">Opzioni</div>
+                    <div class="d-flex">
+                        <!-- Checkbox personalizzate per opzioni -->
+                        <div class="mb-3 col-6  me-2">
+                            <div class="mb-2 ">Opzioni</div>
 
-                        <!-- Vegan Option -->
-                        <input type="checkbox" class="btn-check" id="vegan" name="vegan" value="1"
-                            {{ old('vegan', $dish->vegan) ? 'checked' : '' }} />
-                        <label class="btn btn-outline-success mb-1" for="vegan">Vegan</label>
+                            <!-- Vegan Option -->
+                            <input type="checkbox" class="btn-check" id="vegan" name="vegan" value="1"
+                                {{ old('vegan', $dish->vegan) ? 'checked' : '' }} />
+                            <label class="btn btn-outline-success mb-1" for="vegan">Vegan</label>
 
-                        <!-- Gluten Free Option -->
-                        <input type="checkbox" class="btn-check" id="gluten_free" name="gluten_free" value="1"
-                            {{ old('gluten_free', $dish->gluten_free) ? 'checked' : '' }} />
-                        <label class="btn btn-outline-secondary mb-1" for="gluten_free">Senza Glutine</label>
+                            <!-- Gluten Free Option -->
+                            <input type="checkbox" class="btn-check" id="gluten_free" name="gluten_free" value="1"
+                                {{ old('gluten_free', $dish->gluten_free) ? 'checked' : '' }} />
+                            <label class="btn btn-outline-secondary mb-1" for="gluten_free">Senza Glutine</label>
 
-                        <!-- Spicy Option -->
-                        <input type="checkbox" class="btn-check" id="spicy" name="spicy" value="1"
-                            {{ old('spicy', $dish->spicy) ? 'checked' : '' }} />
-                        <label class="btn btn-outline-danger mb-1" for="spicy">Piccante</label>
+                            <!-- Spicy Option -->
+                            <input type="checkbox" class="btn-check" id="spicy" name="spicy" value="1"
+                                {{ old('spicy', $dish->spicy) ? 'checked' : '' }} />
+                            <label class="btn btn-outline-danger mb-1" for="spicy">Piccante</label>
 
-                        <!-- Lactose Free Option -->
-                        <input type="checkbox" class="btn-check" id="lactose_free" name="lactose_free" value="1"
-                            {{ old('lactose_free', $dish->lactose_free) ? 'checked' : '' }} />
-                        <label class="btn btn-outline-primary mb-1" for="lactose_free">Senza Lattosio</label>
+                            <!-- Lactose Free Option -->
+                            <input type="checkbox" class="btn-check" id="lactose_free" name="lactose_free" value="1"
+                                {{ old('lactose_free', $dish->lactose_free) ? 'checked' : '' }} />
+                            <label class="btn btn-outline-primary mb-1" for="lactose_free">Senza Lattosio</label>
+                        </div>
+
+                        <!-- Campo Visibilità -->
+                        <div class="mb-3 col-6">
+                            <div class="mb-2">Visibilitá</div>
+                            <input type="checkbox" class="btn-check" id="visible" name="visible" value="1"
+                                {{ old('visible', $dish->visible) ? 'checked' : '' }} />
+                            <label class="btn btn-outline-primary mb-1" for="visible">Visibile</label>
+                        </div>
                     </div>
-
-                    <!-- Campo Visibilità -->
-                    <div class="mb-3">
-                        <div class="mb-2">Visibilitá</div>
-                        <input type="checkbox" class="btn-check" id="visible" name="visible" value="1"
-                            {{ old('visible', $dish->visible) ? 'checked' : '' }} />
-                        <label class="btn btn-outline-primary mb-1" for="visible">Visibile</label>
-                    </div>
-
                     <a href="{{ route('user.restaurants.show', $restaurant) }}" class="btn btn-primary me-1">
                         <i class="fas fa-arrow-left"></i>
                         Torna al Ristorante

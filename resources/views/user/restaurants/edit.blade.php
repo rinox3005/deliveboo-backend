@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="card my-3">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header text-dark">
                 <h2 class="mb-0">Modifica Ristorante</h2>
             </div>
             <div class="card-body">
@@ -28,16 +28,18 @@
                             value="{{ old('name', $restaurant->name) }}" required />
                     </div>
 
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Indirizzo <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="address" name="address"
-                            value="{{ old('address', $restaurant->address) }}" required />
-                    </div>
+                    <div class="mb-3 d-flex">
+                        <div class="col-6 me-2">
+                            <label for="address" class="form-label">Indirizzo <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="address" name="address"
+                                value="{{ old('address', $restaurant->address) }}" required />
+                        </div>
+                        <div class="col-6">
+                            <label for="city" class="form-label">Città <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="city" name="city"
+                                value="{{ old('city', $restaurant->city) }}" required />
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="city" class="form-label">Città <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="city" name="city"
-                            value="{{ old('city', $restaurant->city) }}" required />
                     </div>
 
                     <div class="mb-3">
