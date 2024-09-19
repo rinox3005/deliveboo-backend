@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NewOrder;
 use App\Models\Order;
 use App\Models\Dish;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ApiOrderController extends Controller
 {
@@ -55,16 +57,22 @@ class ApiOrderController extends Controller
 
         $order->save();
 
+        
+        
         // Genera lo slug finale utilizzando l'ID dell'ordine
         $order->slug = 'NO' . $order->id;
-
+        
         // Salva nuovamente l'ordine con lo slug aggiornato
         $order->save();
-
+        
         // Associa i piatti all'ordine nella tabella pivot
         foreach ($data['dishes'] as $dish) {
             $order->dishes()->attach($dish['id'], ['quantity' => $dish['quantity']]);
         }
+        
+        // Invio dell'email
+        Mail::to($order->user_email)->send(new NewOrder($order));
+
 
         return response()->json(['message' => 'Ordine creato con successo', 'order' => $order], 201);
     }
