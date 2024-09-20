@@ -43,6 +43,7 @@ class NewOrder extends Mailable
     public function content(): Content
     {
         return new Content(
+                
             //view del corpo dell'email
             view: 'user.emails.order',
         );
