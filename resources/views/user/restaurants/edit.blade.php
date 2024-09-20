@@ -83,10 +83,10 @@
                         @endforeach
                     </div>
                     <div class="d-flex justify-content-between">
-                        <a href="{{ route('user.dashboard') }}"
-                            class="py-1 px-2 bg-custom-secondary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
+                        <a href="{{ route('user.restaurants.show', $restaurant) }}"
+                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
                             <i class="fas fa-arrow-left me-2"></i>
-                            Torna alla Dashboard
+                            Torna al ristorante
                         </a>
                         <button type="submit"
                             class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white border-none border">

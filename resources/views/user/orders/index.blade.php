@@ -29,7 +29,7 @@
             </thead>
             <tbody>
                 @foreach ($orders as $order)
-                    <tr class="align-middle">
+                    <tr class="align-middle py-5">
                         <td>
                             Ordine #{{ $order->id }}
                         </td>
@@ -38,7 +38,8 @@
                         <td>{{ $order->user_address }}</td>
                         <td>{{ $order->total_price }} €</td>
                         <td>
-                            <a href="{{ route('user.orders.show', $order) }}" class="btn btn-info btn-sm me-1 my-1"><i
+                            <a href="{{ route('user.orders.show', $order) }}"
+                                class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 mt-2 text-white"><i
                                     class="fas fa-eye me-1"></i>Dettagli</a>
                         </td>
                     </tr>

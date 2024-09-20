@@ -39,10 +39,6 @@ a {
     background-color: #434848;
 }
 
-.bg-custom-tertiary {
-    background-color: #ec7600;
-}
-
 .nav-link.active {
     background-color: grey !important;
 }
@@ -72,6 +68,14 @@ a {
 
 .fs-20 {
     font-size: 13px;
+}
+
+.page-link.active,
+.active > .page-link {
+    z-index: 3;
+    color: white;
+    background-color: #ec7600;
+    border-color: #ec7600;
 }
 
 // RESPONSIVITA' DASHBOARD

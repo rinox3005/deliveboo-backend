@@ -129,7 +129,8 @@
                                             <td>€ {{ $recentOrder->total_price }}</td>
                                             <td>
                                                 <a href="{{ route('user.orders.show', $recentOrder) }}"
-                                                    class="btn btn-info btn-sm me-1 my-1"><i class="fas fa-eye"></i></a>
+                                                    class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 mt-2 text-white"><i
+                                                        class="fas fa-eye"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -137,7 +138,7 @@
                             </table>
                             <div class="d-flex justify-content-end">
                                 <a href="{{ route('user.orders.index') }}"
-                                    class="py-1 px-2 bg-custom-secondary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white"><i
+                                    class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white"><i
                                         class="fas fa-list-check me-2"></i>Vai alla lista completa degli
                                     ordini</a>
                             </div>
@@ -145,7 +146,7 @@
                             <p>Non hai ancora ricevuto nessun ordine oggi.</p>
                             <div class="d-flex justify-content-end">
                                 <a href="{{ route('user.orders.index') }}"
-                                    class="py-1 px-2 bg-custom-secondary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white"><i
+                                    class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white"><i
                                         class="fas fa-list-check me-2"></i>Vai alla lista completa degli
                                     ordini</a>
                             </div>
@@ -207,7 +208,7 @@
                 @endif
                 <div class="d-flex justify-content-end">
                     <a href="{{ route('user.dishes.create') }}"
-                        class="py-1 px-2 bg-custom-secondary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
+                        class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
                         <i class="fas fa-plus me-1"></i>
                         Aggiungi Nuovo Piatto
                     </a>
