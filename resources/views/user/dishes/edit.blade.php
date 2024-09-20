@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Deliveboo | Partner Hub - Modifica {{ $dish->name }}
+@endsection
+
 @section('content')
     <div class="container">
         <div class="card my-3">
@@ -81,13 +85,17 @@
                             <label class="btn btn-outline-primary mb-1" for="visible">Visibile</label>
                         </div>
                     </div>
-                    <a href="{{ route('user.restaurants.show', $restaurant) }}" class="btn btn-primary me-1">
-                        <i class="fas fa-arrow-left"></i>
-                        Torna al Ristorante
-                    </a>
-                    <button type="submit" class="btn btn-warning">
-                        Aggiorna Piatto
-                    </button>
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ route('user.restaurants.show', $restaurant) }}"
+                            class="py-1 px-2 bg-custom-secondary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Torna al Ristorante
+                        </a>
+                        <button type="submit"
+                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white border-none border">
+                            Aggiorna Piatto
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

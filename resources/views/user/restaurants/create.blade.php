@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Deliveboo | Partner Hub - Crea Nuovo Ristorante
+@endsection
+
 @section('content')
     <div class="container">
         <div class="card my-3">
@@ -71,14 +75,17 @@
                             </label>
                         @endforeach
                     </div>
-
-                    <a href="{{ route('user.dashboard') }}" class="btn btn-primary me-1">
-                        <i class="fas fa-arrow-left"></i>
-                        Torna alla Dashboard
-                    </a>
-                    <button type="submit" class="btn btn-primary">
-                        Crea Ristorante
-                    </button>
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ route('user.dashboard') }}"
+                            class="py-1 px-2 bg-custom-secondary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
+                            <i class="fas fa-arrow-left"></i>
+                            Torna alla Dashboard
+                        </a>
+                        <button type="submit"
+                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white border-none border">
+                            Crea Ristorante
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

@@ -1,12 +1,16 @@
 @extends('layouts.app')
 
+@section('title')
+    Deliveboo | Partner Hub - Ordine #{{ $order->id }}
+@endsection
+
 @section('content')
     <div class="container">
-        <h1 class="my-3 text-center">Dettagli Ordine #{{ $order->id }}</h1>
+        <h1 class="my-4 text-center">Ordine #{{ $order->id }}</h1>
 
         <div class="card mt-3">
-            <div class="card-header bg-primary text-white">
-                <h2 class="mb-0">Dettagli dell'Ordine</h2>
+            <div class="card-header text-dark">
+                <h2 class="mb-0">Dettagli Cliente</h2>
             </div>
             <div class="card-body">
                 <div class="row mb-3">
@@ -35,45 +39,45 @@
                     </div>
                 @endif
 
-                <div class="card mt-4">
-                    <div class="card-header bg-success text-white">
-                        <h2 class="mb-0">Piatti Ordinati</h2>
-                    </div>
-                    <div class="card-body">
-                        @if ($dishes->isNotEmpty())
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Nome Piatto</th>
-                                        <th>Descrizione</th>
-                                        <th>Prezzo</th>
-                                        <th>Quantità</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($dishes as $dish)
-                                        <tr>
-                                            <td>{{ $dish->name }}</td>
-                                            <td>{{ $dish->description }}</td>
-                                            <td>€{{ number_format($dish->price, 2) }}</td>
-                                            <td>{{ $dish->pivot->quantity }}</td>
-                                            <!-- Assumi che esista una tabella pivot con 'quantity' -->
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @else
-                            <p>Nessun piatto associato a questo ordine.</p>
-                        @endif
-                    </div>
-                </div>
 
-                <div class="d-flex justify-content-end mt-3">
-                    <a href="{{ route('user.orders.index') }}" class="btn btn-primary">
-                        <i class="fas fa-arrow-left"></i> Torna agli Ordini
-                    </a>
-                </div>
+                <h2 class="mb-0 text-center pt-3">Dettagli Ordine</h2>
+
+
+                @if ($dishes->isNotEmpty())
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nome Piatto</th>
+                                <th>Descrizione</th>
+                                <th>Prezzo</th>
+                                <th>Quantità</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($dishes as $dish)
+                                <tr>
+                                    <td>{{ $dish->name }}</td>
+                                    <td>{{ $dish->description }}</td>
+                                    <td>€{{ number_format($dish->price, 2) }}</td>
+                                    <td>{{ $dish->pivot->quantity }}</td>
+                                    <!-- Assumi che esista una tabella pivot con 'quantity' -->
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <p>Nessun piatto associato a questo ordine.</p>
+                @endif
+
             </div>
+
         </div>
+        <div class="d-flex justify-content-end mt-3">
+            <a href="{{ route('user.orders.index') }}"
+                class="py-1 px-2 bg-custom-secondary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
+                <i class="fas fa-arrow-left me-2"></i> Torna agli Ordini
+            </a>
+        </div>
+    </div>
     </div>
 @endsection

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Deliveboo | Partner Hub - Ordini di {{ $restaurant->name }}
+@endsection
+
 @section('content')
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">

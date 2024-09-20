@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Deliveboo | Partner Hub - Dettagli {{ $dish->name }}
+@endsection
+
 @section('content')
     <div class="container">
         <h1 class="my-4 text-center">Dettagli Piatto</h1>
@@ -37,7 +41,7 @@
                             <div class="col-md-6">
                                 <p class="mb-2">
                                     <strong>Prezzo:</strong>
-                                    {{ $dish->price }} €
+                                    € {{ $dish->price }}
                                 </p>
                             </div>
                             <div class="col-md-6">
@@ -83,17 +87,20 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('user.restaurants.show', $restaurant) }}" class="btn btn-primary me-2">
-                        <i class="fas fa-arrow-left"></i>
-                        Torna al Ristorante
+                    <a href="{{ route('user.dishes.index', $restaurant) }}"
+                        class="btn btn-secondary btn-sm custom-btn me-2 d-flex align-items-center text-white fs-6">
+                        <i class="fas fa-arrow-left me-2"></i>
+                        Torna al Menú
                     </a>
-                    <a href="{{ route('user.dishes.edit', $dish) }}" class="btn btn-warning me-2">
-                        <i class="fas fa-edit"></i>
+                    <a href="{{ route('user.dishes.edit', $dish) }}"
+                        class="btn btn-warning btn-sm custom-btn me-2 d-flex align-items-center text-dark fs-6">
+                        <i class="fas fa-edit me-2"></i>
                         Modifica
                     </a>
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                        data-bs-dish-id="{{ $dish->id }}" data-bs-dish-name="{{ $dish->name }}">
-                        <i class="fas fa-trash"></i>
+                    <button class="btn btn-danger btn-sm custom-btn me-2 d-flex align-items-center text-white fs-6"
+                        data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-dish-id="{{ $dish->id }}"
+                        data-bs-dish-name="{{ $dish->name }}">
+                        <i class="fas fa-trash me-2"></i>
                         Cancella
                     </button>
                 </div>

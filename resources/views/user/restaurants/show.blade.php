@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Deliveboo | Partner Hub - Dettagli {{ $restaurant->name }}
+@endsection
+
 @section('content')
     <div class="container mb-2">
         {{-- <h1 class="mt-4 mb-3 text-center display-5">Dettagli {{ $restaurant->name }}</h1> --}}
@@ -122,7 +126,7 @@
                                             </td>
                                             <td>{{ $recentOrder->user_name }}</td>
                                             <td>{{ $recentOrder->user_address }}</td>
-                                            <td>{{ $recentOrder->total_price }} €</td>
+                                            <td>€ {{ $recentOrder->total_price }}</td>
                                             <td>
                                                 <a href="{{ route('user.orders.show', $recentOrder) }}"
                                                     class="btn btn-info btn-sm me-1 my-1"><i class="fas fa-eye"></i></a>
@@ -139,9 +143,12 @@
                             </div>
                         @else
                             <p>Non hai ancora ricevuto nessun ordine oggi.</p>
-                            <a href="{{ route('user.orders.index') }}" class="btn btn-primary"><i
-                                    class="fas fa-list-check me-2"></i>Vai alla lista completa degli
-                                ordini</a>
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('user.orders.index') }}"
+                                    class="py-1 px-2 bg-custom-secondary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white"><i
+                                        class="fas fa-list-check me-2"></i>Vai alla lista completa degli
+                                    ordini</a>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -161,7 +168,7 @@
                                 <th>Piatto</th>
                                 <th>Descrizione</th>
                                 <th>Prezzo</th>
-                                <th>Azioni</th>
+                                {{-- <th>Azioni</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -175,10 +182,10 @@
                                     </td>
                                     <td>{{ $dish->name }}</td>
                                     <td>{{ $dish->description }}</td>
-                                    <td>{{ $dish->price }} €</td>
-                                    <td>
+                                    <td>€ {{ $dish->price }}</td>
+                                    {{-- <td>
                                         <a href="{{ route('user.dishes.show', $dish) }}"
-                                            class="btn btn-info btn-sm custom-btn me-2  text-dark fs-6"><i
+                                            class="btn btn-info btn-sm custom-btn me-2 text-dark fs-6"><i
                                                 class="fas fa-eye me-1"></i>Dettagli</a>
                                         <a href="{{ route('user.dishes.edit', $dish) }}"
                                             class="btn btn-warning btn-sm custom-btn me-2 text-dark fs-6"><i
@@ -190,7 +197,7 @@
                                             <i class="fas fa-trash me-1"></i>Cancella
                                         </button>
 
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

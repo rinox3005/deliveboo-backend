@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Deliveboo | Partner Hub - Menú di {{ $restaurant->name }}
+@endsection
+
 @section('content')
     <div class="container">
         <div class="card mt-4">
@@ -45,12 +49,12 @@
                                     </td>
                                     <td>{{ $dish->name }}</td>
                                     <td>{{ $dish->description }}</td>
-                                    <td>{{ $dish->price }} €</td>
+                                    <td>€ {{ $dish->price }}</td>
                                     <td>
                                         <a href="{{ route('user.dishes.show', $dish) }}"
                                             class="btn btn-info btn-sm me-1 my-1"><i
                                                 class="fas fa-eye me-1"></i>Dettagli</a>
-                                        <a href="{{ route('user.dishes.edit', $dish) }}"
+                                        {{-- <a href="{{ route('user.dishes.edit', $dish) }}"
                                             class="btn btn-warning btn-sm me-1 my-1"><i
                                                 class="fas fa-edit me-1"></i>Modifica</a>
 
@@ -58,7 +62,7 @@
                                             data-bs-target="#deleteModalDish" data-bs-dish-id="{{ $dish->id }}"
                                             data-bs-dish-name="{{ $dish->name }}">
                                             <i class="fas fa-trash me-1"></i>Cancella
-                                        </button>
+                                        </button> --}}
 
                                     </td>
                                 </tr>
