@@ -21,27 +21,29 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="@if ($restaurants) {{ route('user.restaurants.show', $restaurant) }} @endif"
-                            class="nav-link text-white">
-                            <i class="fa-solid fa-utensils me-xl-2 me-md-0"></i>
-                            <span>Ristorante</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@if ($restaurants) {{ route('user.orders.index') }} @endif"
-                            class="nav-link text-white">
-                            <i class="fa-solid fa-layer-group me-xl-2 me-md-0"></i>
-                            <span>Ordini</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@if ($restaurants) {{ route('user.dishes.index') }} @endif"
-                            class="nav-link text-white">
-                            <i class="fa-solid fa-book-open me-xl-2 me-md-0"></i>
-                            <span>Menú</span>
-                        </a>
-                    </li>
+                    @if ($restaurant)
+                        <li>
+                            <a href="@if ($restaurants) {{ route('user.restaurants.show', $restaurant) }} @endif"
+                                class="nav-link text-white">
+                                <i class="fa-solid fa-utensils me-xl-2 me-md-0"></i>
+                                <span>Ristorante</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@if ($restaurants) {{ route('user.orders.index') }} @endif"
+                                class="nav-link text-white">
+                                <i class="fa-solid fa-layer-group me-xl-2 me-md-0"></i>
+                                <span>Ordini</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@if ($restaurants) {{ route('user.dishes.index') }} @endif"
+                                class="nav-link text-white">
+                                <i class="fa-solid fa-book-open me-xl-2 me-md-0"></i>
+                                <span>Menú</span>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
 
