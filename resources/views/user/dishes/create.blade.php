@@ -49,8 +49,8 @@
                     <!-- Checkbox personalizzate per opzioni -->
                     <div class="mb-3">
 
-                        <div class="d-flex">
-                            <div class="col-6 me-2">
+                        <div class="row">
+                            <div class="col-12 col-md-6 mb-4">
                                 <div class="mb-2">Opzioni</div>
 
                                 <!-- Vegan Option -->
@@ -75,7 +75,7 @@
                                 <label class="btn btn-outline-primary mb-1" for="lactose_free">Senza Lattosio</label>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                                 <!-- Campo Visibilità -->
                                 <div class="mb-3">
                                     <div class="mb-2">Includi in Menú</div>
@@ -89,12 +89,13 @@
 
                     <div class="d-flex justify-content-between">
                         <a href="{{ route('user.restaurants.show', $restaurant) }}"
-                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
+                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white d-none d-md-flex">
                             <i class="fas fa-arrow-left me-2"></i>
                             Torna al Ristorante
                         </a>
                         <button type="submit"
-                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white border-none border">
+                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white border-none border justify-content-center flex-grow-1 flex-md-grow-0">
+
                             Crea Piatto
                         </button>
                     </div>

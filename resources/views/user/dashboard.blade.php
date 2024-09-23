@@ -8,7 +8,7 @@
     <div class="container-fluid p-0 overflow-hidden">
         <div class="d-flex">
             {{-- Sidebar --}}
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-custom-secondary col-2 custom-sidebar">
+            <div class="d-flex flex-column flex-shrink-0 p-3 bg-custom-secondary col-2 custom-sidebar d-none d-md-block">
                 <a class="d-flex align-items-center mb-3 mb-md-0 text-decoration-none mt-2 text-white">
                     <i class="fa-solid fa-user-gear pe-2"></i>
                     <span class="fs-5 ">Area Riservata</span>

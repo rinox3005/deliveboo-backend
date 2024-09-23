@@ -76,12 +76,30 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item d-block d-md-none">
+                                <a class="nav-link text-white fs-6 fw-semibold" href="{{ route('user.dashboard') }}">
+                                    {{ __('Dashboard') }} </a>
+                            </li>
+                            <li class="nav-item d-block d-md-none">
+                                <a class="nav-link text-white fs-6 fw-semibold"
+                                    href="{{ route('user.restaurants.show', $restaurant) }}">
+                                    {{ __('Ristorante') }} </a>
+                            </li>
+                            <li class="nav-item d-block d-md-none">
+                                <a class="nav-link text-white fs-6 fw-semibold" href="{{ route('user.dishes.index') }}">
+                                    {{ __('Menú') }} </a>
+                            </li>
+                            <li class="nav-item d-block d-md-none">
+                                <a class="nav-link text-white fs-6 fw-semibold" href="{{ route('user.orders.index') }}">
+                                    {{ __('Ordini') }} </a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-white fs-6 fw-semibold"
                                     href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
+
 
                                 <div id="theme-dropdown-menu" class="dropdown-menu dropdown-menu-right"
                                     aria-labelledby="navbarDropdown">

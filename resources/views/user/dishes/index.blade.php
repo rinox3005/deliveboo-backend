@@ -13,7 +13,7 @@
                     <h2 class="mb-0">Menú</h2>
                     <div>
                         <a href="{{ route('user.restaurants.show', $restaurant) }}"
-                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 mt-2 text-white">
+                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 mt-2 text-white d-none d-md-inline"">
                             <i class="fas fa-arrow-left p-3 p-md-0"></i>
                             <span class="d-none d-md-inline">Torna al Ristorante</span>
                         </a>

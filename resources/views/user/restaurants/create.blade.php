@@ -82,7 +82,8 @@
                             Torna alla Dashboard
                         </a>
                         <button type="submit"
-                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white border-none border">
+                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white border-none border justify-content-center flex-grow-1 flex-md-grow-0">
+
                             Crea Ristorante
                         </button>
                     </div>

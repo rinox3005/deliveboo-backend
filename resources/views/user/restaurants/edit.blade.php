@@ -84,12 +84,12 @@
                     </div>
                     <div class="d-flex justify-content-between">
                         <a href="{{ route('user.restaurants.show', $restaurant) }}"
-                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
+                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white d-none d-md-flex">
                             <i class="fas fa-arrow-left me-2"></i>
                             Torna al ristorante
                         </a>
                         <button type="submit"
-                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white border-none border">
+                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white border-none border justify-content-center flex-grow-1 flex-md-grow-0">
                             Aggiorna Ristorante
                         </button>
                     </div>

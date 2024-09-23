@@ -221,11 +221,11 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-end mt-3">
+        <div class="d-flex justify-content-end mt-3 d-none d-md-flex">
             <a href="{{ route('user.dashboard') }}"
                 class="py-1 px-2 bg-custom-secondary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
                 <i class="fas fa-arrow-left me-1"></i>
-                Torna alla Dashboard
+                <span>Torna alla Dashboard</span>
             </a>
         </div>
     </div>

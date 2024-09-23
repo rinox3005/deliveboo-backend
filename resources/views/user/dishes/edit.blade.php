@@ -51,9 +51,9 @@
                         @endif
                     </div>
 
-                    <div class="d-flex">
+                    <div class="row">
                         <!-- Checkbox personalizzate per opzioni -->
-                        <div class="mb-3 col-6  me-2">
+                        <div class="col-12 col-md-6 mb-4">
                             <div class="mb-2 ">Opzioni</div>
 
                             <!-- Vegan Option -->
@@ -78,21 +78,21 @@
                         </div>
 
                         <!-- Campo Visibilità -->
-                        <div class="mb-3 col-6">
-                            <div class="mb-2">Visibilitá</div>
+                        <div class="col-12 col-md-6">
+                            <div class="mb-2">Includi in Menú</div>
                             <input type="checkbox" class="btn-check" id="visible" name="visible" value="1"
                                 {{ old('visible', $dish->visible) ? 'checked' : '' }} />
-                            <label class="btn btn-outline-primary mb-1" for="visible">Visibile</label>
+                            <label class="btn btn-outline-warning mb-1 text-dark" for="visible">Disponibile</label>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between">
                         <a href="{{ route('user.restaurants.show', $restaurant) }}"
-                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
+                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white d-none d-md-flex">
                             <i class="fas fa-arrow-left me-2"></i>
                             Torna al Ristorante
                         </a>
                         <button type="submit"
-                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white border-none border">
+                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white border-none border justify-content-center flex-grow-1 flex-md-grow-0">
                             Aggiorna Piatto
                         </button>
                     </div>

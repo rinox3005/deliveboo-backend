@@ -131,11 +131,13 @@ a {
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
     .custom-ml {
-        margin-left: 20.66667%;
+        margin-left: 0;
     }
+}
 
+@media (max-width: 640px) {
     .nav-spaces {
         margin-right: 5px;
         margin-left: 5px;

@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="my-4 text-center">Dettagli Piatto</h1>
+        <h1 class="my-4 text-center">Dettagli Prodotto</h1>
 
         @if (session('message'))
             <div class="alert alert-success">
@@ -88,16 +88,17 @@
                 </div>
                 <div class="d-flex justify-content-end">
                     <a href="{{ route('user.dishes.index', $restaurant) }}"
-                        class="btn btn-secondary btn-sm custom-btn me-2 d-flex align-items-center text-white fs-6">
+                        class="btn btn-secondary btn-sm custom-btn me-2 d-flex align-items-center text-white fs-6 d-none d-md-inline">
                         <i class="fas fa-arrow-left me-2"></i>
                         Torna al Menú
                     </a>
                     <a href="{{ route('user.dishes.edit', $dish) }}"
-                        class="btn btn-warning btn-sm custom-btn me-2 d-flex align-items-center text-dark fs-6">
+                        class="btn btn-warning btn-sm custom-btn me-2 d-flex align-items-center text-dark fs-6 justify-content-center flex-grow-1 flex-md-grow-0">
                         <i class="fas fa-edit me-2"></i>
                         Modifica
                     </a>
-                    <button class="btn btn-danger btn-sm custom-btn me-2 d-flex align-items-center text-white fs-6"
+                    <button
+                        class="btn btn-danger btn-sm custom-btn me-2 d-flex align-items-center text-white fs-6 justify-content-center flex-grow-1 flex-md-grow-0"
                         data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-dish-id="{{ $dish->id }}"
                         data-bs-dish-name="{{ $dish->name }}">
                         <i class="fas fa-trash me-2"></i>

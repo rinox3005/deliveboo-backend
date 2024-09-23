@@ -72,7 +72,7 @@
             </div>
 
         </div>
-        <div class="d-flex justify-content-end mt-3">
+        <div class="d-flex justify-content-end mt-3 d-none d-md-flex">
             <a href="{{ route('user.orders.index') }}"
                 class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
                 <i class="fas fa-arrow-left me-2"></i> Torna agli Ordini

@@ -8,7 +8,7 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
             <h1 class="fw-semibold d-inline my-4">Ordini di {{ $restaurant->name }}</h1>
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end d-none d-md-block">
                 <a href="{{ route('user.restaurants.show', $restaurant) }}"
                     class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 mt-2 text-white">
                     <i class="fas fa-arrow-left p-3 p-md-0"></i>
