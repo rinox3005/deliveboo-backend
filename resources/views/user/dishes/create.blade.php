@@ -78,10 +78,10 @@
                             <div class="col-6">
                                 <!-- Campo Visibilità -->
                                 <div class="mb-3">
-                                    <div class="mb-2">Visibilitá</div>
+                                    <div class="mb-2">Includi in Menú</div>
                                     <input type="checkbox" class="btn-check" id="visible" name="visible" value="1"
                                         {{ old('visible') ? 'checked' : '' }} />
-                                    <label class="btn btn-outline-primary mb-1" for="visible">Visibile</label>
+                                    <label class="btn btn-outline-warning mb-1 text-dark" for="visible">Disponibile</label>
                                 </div>
                             </div>
                         </div>

@@ -81,6 +81,10 @@ a {
     border-color: #ec7600;
 }
 
+.custom-stats-margins {
+    padding-right: 40px;
+}
+
 // RESPONSIVITA' DASHBOARD
 
 @media (max-width: 1090px) {
@@ -146,9 +150,24 @@ a {
     }
 }
 
-@media (max-width: 376px) {
+@media (max-width: 450px) {
+    .custom-stats-margins {
+        padding-right: 5px;
+        padding-bottom: 20px;
+    }
+
+    .custom-margins {
+        margin-right: 0 !important;
+    }
+}
+
+@media (max-width: 390px) {
     .dashboard-card-header {
         font-size: 15px;
+    }
+
+    .custom-fs-order-list {
+        font-size: 15px !important;
     }
 }
 

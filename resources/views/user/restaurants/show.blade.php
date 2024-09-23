@@ -14,7 +14,7 @@
             </div>
         @endif
         <div class="row pb-3">
-            <div class="col-6">
+            <div class="col-12 col-lg-6">
                 <div class="card mt-3 shadow-sm h-100">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h2 class="mb-0">Info Ristorante</h2>
@@ -80,13 +80,14 @@
                                     alt="{{ $restaurant->name }} Image" class="img-thumbnail preview-show" />
                             </div>
                         </div>
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-center justify-content-md-end pt-3">
                             <a href="{{ route('user.restaurants.edit', $restaurant) }}"
-                                class="btn btn-warning btn-sm custom-btn me-2 d-flex align-items-center text-dark fs-6">
+                                class="btn btn-warning btn-sm custom-btn me-2 d-flex align-items-center text-dark fs-6 custom-fs-order-list">
                                 <i class="fas fa-edit me-1"></i>
                                 Modifica
                             </a>
-                            <button class="btn btn-danger btn-sm custom-btn me-2 d-flex align-items-center fs-6"
+                            <button
+                                class="btn btn-danger btn-sm custom-btn me-2 d-flex align-items-center fs-6 custom-fs-order-list"
                                 data-bs-toggle="modal" data-bs-target="#deleteModal"
                                 data-bs-restaurant-id="{{ $restaurant->id }}"
                                 data-bs-restaurant-name="{{ $restaurant->name }}">
@@ -101,7 +102,7 @@
 
 
             <!-- Lista ultimi 2 ordini -->
-            <div class="col-6">
+            <div class="col-12 col-lg-6 mt-4 mt-lg-0">
                 <div class="card shadow-sm mt-3 h-100">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h2 class="mb-0">Ultimi Ordini</h2>
@@ -146,7 +147,7 @@
                             <p>Non hai ancora ricevuto nessun ordine oggi.</p>
                             <div class="d-flex justify-content-end">
                                 <a href="{{ route('user.orders.index') }}"
-                                    class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white"><i
+                                    class="py-1 px-2 bg-custom-primary custom-fs-order-list custom-btn me-2 d-flex align-items-center mt-2 text-white"><i
                                         class="fas fa-list-check me-2"></i>Vai alla lista completa degli
                                     ordini</a>
                             </div>
@@ -156,7 +157,7 @@
             </div>
         </div>
         <!-- Lista dei piatti associati -->
-        <div class="card mt-4">
+        <div class="card mt-4 shadow-sm">
             <div class="card-header">
                 <h2 class="mb-0">Ultimi Piatti</h2>
             </div>
@@ -209,13 +210,13 @@
                 <div class="d-flex justify-content-end">
                     <a href="{{ route('user.dishes.create') }}"
                         class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
-                        <i class="fas fa-plus me-1"></i>
-                        Aggiungi Nuovo Piatto
+                        <i class="fas fa-plus me-md-1 p-2 p-md-0"></i>
+                        <span class="d-none d-md-inline">Aggiungi Nuovo Piatto</span>
                     </a>
                     <a href="{{ route('user.dishes.index') }}"
                         class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 d-flex align-items-center mt-2 text-white">
-                        <i class="fas fa-book-open me-1"></i>
-                        Menú Completo
+                        <i class="fas fa-book-open me-md-1 p-2 p-md-0"></i>
+                        <span class="d-none d-md-inline">Menú Completo</span>
                     </a>
                 </div>
             </div>

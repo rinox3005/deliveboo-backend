@@ -100,7 +100,7 @@ class RestaurantController extends Controller
         $recentOrders = $restaurant->orders()
             ->whereDate('order_date_time', $today) // Filtra solo gli ordini di oggi
             ->latest('order_date_time') // Ordina per data di ordine decrescente
-            ->take(3) // Prendi solo i 3 più recenti
+            ->take(4) // Prendi solo i 4 più recenti
             ->get();
 
         return view('user.restaurants.show', compact('restaurant', 'dishes', 'recentOrders'));

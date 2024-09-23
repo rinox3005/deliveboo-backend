@@ -70,7 +70,7 @@
                         @foreach ($types as $type)
                             <input type="checkbox" class="btn-check" id="type-{{ $type->id }}" name="types[]"
                                 value="{{ $type->id }}" {{ in_array($type->id, old('types', [])) ? 'checked' : '' }} />
-                            <label class="btn btn-outline-primary mb-1" for="type-{{ $type->id }}">
+                            <label class="btn btn-outline-warning mb-1 text-dark" for="type-{{ $type->id }}">
                                 {{ $type->name }}
                             </label>
                         @endforeach

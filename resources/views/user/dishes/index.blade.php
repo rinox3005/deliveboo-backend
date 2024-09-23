@@ -14,13 +14,13 @@
                     <div>
                         <a href="{{ route('user.restaurants.show', $restaurant) }}"
                             class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 mt-2 text-white">
-                            <i class="fas fa-arrow-left"></i>
-                            Torna al Ristorante
+                            <i class="fas fa-arrow-left p-3 p-md-0"></i>
+                            <span class="d-none d-md-inline">Torna al Ristorante</span>
                         </a>
                         <a href="{{ route('user.dishes.create') }}"
                             class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 mt-2 text-white">
-                            <i class="fas fa-plus"></i>
-                            Nuovo Piatto
+                            <i class="fas fa-plus p-3 p-md-0"></i>
+                            <span class="d-none d-md-inline">Nuovo Piatto</span>
                         </a>
                     </div>
 
@@ -28,33 +28,35 @@
             </div>
             <div class="card-body">
                 @if ($dishes->isNotEmpty())
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Immagine</th>
-                                <th>Piatto</th>
-                                <th>Descrizione</th>
-                                <th>Prezzo</th>
-                                <th>Azioni</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($dishes as $dish)
-                                <tr class="align-middle">
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="{{ $dish->image_path ? asset($dish->image_path) : Vite::asset('resources/img/restaurant-placeholder-mini.png') }}"
-                                                alt="{{ $dish->id }} Preview" class="img-thumbnail preview-index" />
-                                        </div>
-                                    </td>
-                                    <td>{{ $dish->name }}</td>
-                                    <td>{{ $dish->description }}</td>
-                                    <td>€ {{ $dish->price }}</td>
-                                    <td>
-                                        <a href="{{ route('user.dishes.show', $dish) }}"
-                                            class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 mt-2 text-white"><i
-                                                class="fas fa-eye me-1"></i>Dettagli</a>
-                                        {{-- <a href="{{ route('user.dishes.edit', $dish) }}"
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Immagine</th>
+                                    <th>Piatto</th>
+                                    <th>Descrizione</th>
+                                    <th>Prezzo</th>
+                                    <th>Azioni</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($dishes as $dish)
+                                    <tr class="align-middle">
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="{{ $dish->image_path ? asset($dish->image_path) : Vite::asset('resources/img/restaurant-placeholder-mini.png') }}"
+                                                    alt="{{ $dish->id }} Preview" class="img-thumbnail preview-index" />
+                                            </div>
+                                        </td>
+                                        <td>{{ $dish->name }}</td>
+                                        <td>{{ $dish->description }}</td>
+                                        <td>€ {{ $dish->price }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ route('user.dishes.show', $dish) }}"
+                                                class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 mt-2 text-white"><i
+                                                    class="fas fa-eye me-lg-1"></i><span
+                                                    class="d-none d-lg-inline">Dettagli</span></a>
+                                            {{-- <a href="{{ route('user.dishes.edit', $dish) }}"
                                             class="btn btn-warning btn-sm me-1 my-1"><i
                                                 class="fas fa-edit me-1"></i>Modifica</a>
 
@@ -64,21 +66,22 @@
                                             <i class="fas fa-trash me-1"></i>Cancella
                                         </button> --}}
 
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div>
 
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        {{ $dishes->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}
-                    </div>
-                @else
-                    <p>Non ci sono piatti associati a questo ristorante.</p>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            {{ $dishes->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}
+                        </div>
+                    @else
+                        <p>Non ci sono piatti associati a questo ristorante.</p>
                 @endif
             </div>
         </div>
+    </div>
     </div>
 @endsection

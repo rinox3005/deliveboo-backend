@@ -104,8 +104,8 @@
                     </div>
                 </div>
                 @if (!empty($restaurants) && count($restaurants) > 0)
-                    <div class="mx-lg-4 my-4 flex-grow-1 ">
-                        <div class="col-11 col-md-12 ms-3">
+                    <div class=" custom-margins mx-4 my-4 flex-grow-1 ">
+                        <div class="col-11 col-md-12">
                             <div class="card">
                                 <div class="card-header">
                                     <h5 class="dashboard-card-header fw-semibold my-1">
@@ -115,7 +115,7 @@
                                 <div class="card-body">
                                     <div class="container-graph px-lg-5">
                                         <div class="row py-2 justify-content-between">
-                                            <div class="col-lg-8 col-md-12">
+                                            <div class="col-lg-8 col-md-12 custom-stats-margins">
                                                 <h2 class="mb-3">Numero ordini</h2>
                                                 <div class="d-flex mb-3">
                                                     <select class="form-select w-50 fs-20 me-3"
@@ -155,7 +155,7 @@
                                                 </div>
                                                 <input type="hidden" id="id" value="{{ $restaurants[0]->id }}">
                                                 <div class="canvas">
-                                                    <canvas id="barChart"></canvas>                                                   
+                                                    <canvas id="barChart"></canvas>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-12 mt-md-5 mt-lg-0 pe-5">
@@ -200,11 +200,11 @@
                         data: orders.map(row => row.ordini),
                     }]
                 },
-                options:{
-                    maintainAspectRatio:false,
-                    scales:{
-                        y:{
-                            beginAtZero:true
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
                         }
                     }
                 }
@@ -246,7 +246,7 @@
                         data: {
                             labels: res.map(row => row.piatto),
                             datasets: [{
-    
+
                                 data: res.map(row => row.ordini),
                                 backgroundColor: ['rgb(255,0,0)', 'rgb(0,0,255)',
                                     'rgb(255,205,86)', 'rgb(0,255,0)', 'rgb(41,0,61)',
@@ -254,14 +254,14 @@
                                 hoverOffeset: 4
                             }]
                         },
-                    options:{
-                        maintainAspectRatio:false,
-                        scales:{
-                            y:{
-                                beginAtZero:true
+                        options: {
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
                             }
                         }
-                    }
                     })
 
                 }
@@ -323,11 +323,11 @@
                                     data: results.map(row => row.ordini),
                                 }]
                             },
-                            options:{
-                                maintainAspectRatio:false,
-                                scales:{
-                                    y:{
-                                        beginAtZero:true
+                            options: {
+                                maintainAspectRatio: false,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
                                     }
                                 }
                             }
