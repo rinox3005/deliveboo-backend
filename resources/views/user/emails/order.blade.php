@@ -16,7 +16,7 @@
         <div>
             <div style="text-align: center">
                 <h2 style="color: #ec7600">Riepilogo Ordine</h2>
-                <span>Ordine presso <strong>{{ $order->restaurant->name }}!</strong> </span>
+                <span>Ordine presso <strong>{{ $order->restaurant->name }}</strong>!</span>
                 <table cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: left;">
                     <thead>
                         <tr>
