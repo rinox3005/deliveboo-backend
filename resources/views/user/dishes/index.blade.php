@@ -6,6 +6,13 @@
 
 @section('content')
     <div class="container">
+
+        @if (session('message'))
+            <div class="alert alert-success mt-3">
+                {{ session('message') }}
+            </div>
+        @endif
+
         <div class="card mt-4">
             <div class="card-header">
 

@@ -166,7 +166,7 @@ class DishController extends Controller
         // Ottieni il ristorante associato al piatto
         $restaurant = auth()->user()->restaurant;
 
-        return redirect()->route('user.restaurants.show', $restaurant)->with('message', 'Piatto aggiornato con successo');
+        return redirect()->route('user.dishes.show', $dish)->with('message', 'Piatto aggiornato con successo');
     }
 
 
@@ -186,6 +186,6 @@ class DishController extends Controller
 
         $dish->delete();
 
-        return redirect()->route('user.restaurants.show', $restaurant)->with('message', 'Piatto eliminato con successo');
+        return redirect()->route('user.dishes.index')->with('message', 'Piatto eliminato con successo');
     }
 }
