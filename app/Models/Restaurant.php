@@ -57,11 +57,13 @@ class Restaurant extends Model
         return $this->belongsTo(User::class);
     }
 
-    // mutator per image_path_url
+    // Mutator per image_path_url 
     protected function imagePathUrl(): Attribute
     {
         return new Attribute(
-            get: fn () => 'http://localhost:8000' . $this->image_path,
+            get: fn() => $this->image_path
+                ? 'http://localhost:8000' . $this->image_path
+                : null
         );
     }
 }
