@@ -61,7 +61,7 @@ class DishController extends Controller
             $file = $request->file('image_path');
 
             // Controllo dell'estensione per garantire che sia un'immagine
-            $allowedExtensions = ['jpeg', 'jpg', 'png', 'gif', 'svg'];
+            $allowedExtensions = ['jpeg', 'jpg', 'png', 'gif', 'svg', 'webp'];
             $extension = $file->getClientOriginalExtension();
 
             if (!in_array(strtolower($extension), $allowedExtensions)) {
@@ -145,7 +145,7 @@ class DishController extends Controller
             $file = $request->file('image_path');
 
             // Controllo dell'estensione per garantire che sia un'immagine
-            $allowedExtensions = ['jpeg', 'jpg', 'png', 'gif', 'svg'];
+            $allowedExtensions = ['jpeg', 'jpg', 'png', 'gif', 'svg', 'webp'];
             $extension = $file->getClientOriginalExtension();
 
             if (!in_array(strtolower($extension), $allowedExtensions)) {

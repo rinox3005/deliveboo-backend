@@ -25,7 +25,7 @@ class UpdateDishRequest extends FormRequest
             'name' => 'required|string|max:100',
             'description' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'image_path' => 'nullable|image|max:2048', // Campo immagine opzionale, massimo 2MB
+            'image_path' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg,webp|max:2048', // Aggiunto il formato webp
             'vegan' => 'nullable|boolean',
             'gluten_free' => 'nullable|boolean',
             'spicy' => 'nullable|boolean',
