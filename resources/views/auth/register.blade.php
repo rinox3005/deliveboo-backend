@@ -17,7 +17,7 @@
 
                             <div class="mb-4 row">
                                 <label for="name"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Name *') }}</label>
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Nome e Cognome *') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text"
@@ -34,7 +34,7 @@
 
                             <div class="mb-4 row">
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address *') }}</label>
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Indirizzo E-Mail *') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
@@ -68,7 +68,7 @@
 
                             <div class="mb-4 row">
                                 <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password *') }}</label>
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Conferma Password *') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
@@ -80,7 +80,7 @@
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit"
                                         class="py-2 px-4 bg-custom-primary fs-6 custom-btn me-2 border border-none mt-2 text-white">
-                                        {{ __('Register') }}
+                                        {{ __('Registrati') }}
                                     </button>
                                 </div>
                             </div>

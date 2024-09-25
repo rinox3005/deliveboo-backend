@@ -69,12 +69,12 @@
                                 <a class="nav-link text-white fs-6 fw-semibold"
                                     href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
+                            {{-- @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link text-white fs-6 fw-semibold"
-                                        href="{{ route('register') }}">{{ __('Register') }}</a>
+                                        href="{{ route('register') }}">{{ __('Registrazione') }}</a>
                                 </li>
-                            @endif
+                            @endif --}}
                         @else
                             @if ($restaurant)
                                 <li class="nav-item d-block d-md-none">

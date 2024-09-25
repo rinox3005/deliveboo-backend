@@ -17,7 +17,7 @@
 
                             <div class="mb-4 row">
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Indirizzo E-Mail') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
@@ -56,7 +56,7 @@
                                             {{ old('remember') ? 'checked' : '' }}>
 
                                         <label class="form-check-label" for="remember">
-                                            {{ __('Remember Me') }}
+                                            {{ __('Rimani Collegato') }}
                                         </label>
                                     </div>
                                 </div>
@@ -69,11 +69,15 @@
                                         {{ __('Login') }}
                                     </button>
 
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link text-dark" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
-                                        </a>
-                                    @endif
+                                    {{-- @if (Route::has('password.request')) --}}
+
+                                    <span>Non hai un account?</span>
+                                    <a class="text-dark ps-0 text-decoration-underline" href="{{ route('register') }}">
+                                        {{ __('Registrati ora') }}
+                                    </a>
+
+
+                                    {{-- @endif --}}
                                 </div>
                             </div>
                         </form>
