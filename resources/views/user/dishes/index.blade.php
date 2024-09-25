@@ -51,7 +51,7 @@
                                     <tr class="align-middle">
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <img src="{{ $dish->image_path ? asset($dish->image_path) : Vite::asset('resources/img/restaurant-placeholder-mini.png') }}"
+                                                <img src="{{ $dish->image_path ? asset($dish->image_path) : Vite::asset('resources/img/dish-placeholder-mini.jpg') }}"
                                                     alt="{{ $dish->id }} Preview" class="img-thumbnail preview-index" />
                                             </div>
                                         </td>
@@ -59,7 +59,7 @@
                                         <td>{{ $dish->description }}</td>
                                         <td>€ {{ $dish->price }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('user.dishes.show', $dish) }}"
+                                            <a href="{{ route('user.dishes.show', ['dish' => $dish->id, 'slug' => $dish->slug]) }}"
                                                 class="py-1 px-2 bg-custom-primary fs-6 custom-btn me-2 mt-2 text-white"><i
                                                     class="fas fa-eye me-lg-1"></i><span
                                                     class="d-none d-lg-inline">Dettagli</span></a>

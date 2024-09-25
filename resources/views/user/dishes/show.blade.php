@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="col-md-3 text-center">
-                        <img src="{{ $dish->image_path ? asset($dish->image_path) : Vite::asset('resources/img/restaurant-placeholder-show.png') }}"
+                        <img src="{{ $dish->image_path ? asset($dish->image_path) : Vite::asset('resources/img/dish-placeholder-show.jpg') }}"
                             alt="{{ $dish->name }} Image" class="img-thumbnail preview-show" />
                     </div>
                 </div>

@@ -37,8 +37,10 @@ Route::middleware(['auth', 'verified'])
 
             //dishes
             Route::resource('dishes', DishController::class)->parameters([
-                'dishes' => 'dish:slug',
-            ]);
+                'dishes' => 'dish',
+            ])->except(['show']);
+
+            Route::get('dishes/{dish}/{slug}', [DishController::class, 'show'])->name('dishes.show');
 
             //orders
             Route::resource('orders', OrderController::class)->parameters([

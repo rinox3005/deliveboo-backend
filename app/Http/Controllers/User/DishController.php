@@ -86,17 +86,21 @@ class DishController extends Controller
         Dish::create($data);
 
         // Ottieni il ristorante associato al piatto
-        $restaurant = auth()->user()->restaurant;
+        // $restaurant = auth()->user()->restaurant;
 
         // Reindirizza alla pagina di show del ristorante
-        return redirect()->route('user.restaurants.show', $restaurant)->with('message', 'Piatto creato con successo');
+        return redirect()->route('user.dishes.index')->with('message', 'Piatto creato con successo');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Dish $dish)
+    public function show(Dish $dish, $slug)
     {
+        // Verifica che lo slug nell'URL corrisponda a quello del piatto
+        if ($dish->slug !== $slug) {
+            return redirect()->route('user.dishes.show', ['dish' => $dish->id, 'slug' => $dish->slug]);
+        }
 
         // Ottieni il ristorante associato al piatto
         $restaurant = $dish->restaurant;
@@ -120,7 +124,6 @@ class DishController extends Controller
      */
     public function update(UpdateDishRequest $request, Dish $dish)
     {
-
         $data = $request->validated();
         $data['slug'] = Str::slug($data['name']);
 
@@ -133,8 +136,8 @@ class DishController extends Controller
 
         // Gestione del caricamento dell'immagine
         if ($request->hasFile('image_path')) {
-            // Elimina la vecchia immagine, se esiste
-            if ($dish->image_path) {
+            // Elimina la vecchia immagine solo se nessun altro piatto la usa
+            if ($dish->image_path && Dish::where('image_path', $dish->image_path)->count() === 1) {
                 $oldFilePath = str_replace('storage/', '', $dish->image_path);
                 Storage::disk('public')->delete($oldFilePath);
             }
@@ -163,10 +166,7 @@ class DishController extends Controller
         // Aggiorna i dati del piatto
         $dish->update($data);
 
-        // Ottieni il ristorante associato al piatto
-        $restaurant = auth()->user()->restaurant;
-
-        return redirect()->route('user.dishes.show', $dish)->with('message', 'Piatto aggiornato con successo');
+        return redirect()->route('user.dishes.show', ['dish' => $dish->id, 'slug' => $dish->slug])->with('message', 'Piatto aggiornato con successo');
     }
 
 
@@ -175,11 +175,8 @@ class DishController extends Controller
      */
     public function destroy(Dish $dish)
     {
-        // Ottieni il ristorante associato al piatto
-        $restaurant = $dish->restaurant;
-
-        // Elimina l'immagine associata
-        if ($dish->image_path) {
+        // Elimina l'immagine solo se nessun altro piatto la usa
+        if ($dish->image_path && Dish::where('image_path', $dish->image_path)->count() === 1) {
             $filePath = str_replace('storage/', '', $dish->image_path);
             Storage::disk('public')->delete($filePath);
         }

@@ -76,7 +76,7 @@
                             </div>
 
                             <div class="col-md-3 text-center">
-                                <img src="{{ $restaurant->image_path ? asset($restaurant->image_path) : Vite::asset('resources/img/restaurant-placeholder-show.png') }}"
+                                <img src="{{ $restaurant->image_path ? asset($restaurant->image_path) : Vite::asset('resources/img/restaurant-placeholder-show.jpg') }}"
                                     alt="{{ $restaurant->name }} Image" class="img-thumbnail preview-show" />
                             </div>
                         </div>
@@ -178,7 +178,7 @@
                                 <tr class="align-middle">
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="{{ $dish->image_path ? asset($dish->image_path) : Vite::asset('resources/img/restaurant-placeholder-mini.png') }}"
+                                            <img src="{{ $dish->image_path ? asset($dish->image_path) : Vite::asset('resources/img/restaurant-placeholder-mini.jpg') }}"
                                                 alt="{{ $dish->id }} Preview" class="img-thumbnail preview-index" />
                                         </div>
                                     </td>

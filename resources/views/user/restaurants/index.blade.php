@@ -30,7 +30,7 @@
             @foreach ($restaurants as $restaurant)
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
-                        <img src="{{ $restaurant->image_path ? asset($restaurant->image_path) : Vite::asset('resources/img/restaurant-placeholder-mini.png') }}"
+                        <img src="{{ $restaurant->image_path ? asset($restaurant->image_path) : Vite::asset('resources/img/restaurant-placeholder-mini.jpg') }}"
                             alt="{{ $restaurant->id }} Preview" class="img-thumbnail preview-index" />
                         <h6 class="mb-0 ms-2">
                             {{ $restaurant->name }}
